@@ -1,0 +1,289 @@
+//---------------------------GLOBAL COLORS & FONTS--------------------------
+@import url('https://fonts.googleapis.com/css2?family=Glory:ital,wght@0,400;0,500;0,700;1,500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Jaldi&display=swap');
+
+$background: rgb(245, 243, 237);
+$blackDark: rgb(128, 128, 128);
+$blackLight: rgb(174, 174, 174);
+$pink: rgb(231, 125, 123);
+$blue: rgb(20, 55, 94);
+$orange: rgb(208, 148, 105);
+$gradientPink: (#E77D7B, #E1AA82);
+$gradientBlue: (#9AD1DD, #F8D7BF);
+$gradientMix: ( #9AD1DD, #D79F9E);
+
+$fontTitle: 'Glory', sans-serif;
+$fontText: 'Jaldi', sans-serif;
+
+$textSizeMainTitle: 75px;
+$textSizeTitle: 55px;
+$textSizeSubtitle: 30px;
+$textSizeLetter: 18px;
+
+
+//-------------------------------GLOBAL STYLES------------------------------
+//----COLOR-----
+body {
+  background-color: $background;
+}
+
+//----BUTTON-----
+.button{
+  height: 40px;
+  width: 180px;
+  color: $background;
+  border: none;
+  border-radius: 20px;
+  font-family: $fontTitle;
+  font-weight: 500;
+  font-size: 20px;
+  box-shadow: 2px 2px 5px $blackLight;
+  transition: 0.2s linear;
+
+  &.--blue {
+    background-color: $blue;
+  }
+  &.--lineBlue {
+    background-color: transparent;
+    border-color: $blue;
+    border-style: solid;
+    border-width: 2px;
+    color: $blue;
+  }
+  &.--pink {
+    background-color: $pink;
+  }
+
+  &:hover {
+    transform: scale(1.08);
+  }
+
+}
+
+//----TITLES-----
+.mainTitleText{
+  font-weight: bold;
+  font-family: $fontTitle;
+  font-size: $textSizeMainTitle;
+
+  &.--blue {
+    color: $blue;
+  }
+  &.--pink {
+    color: $pink;
+  }
+}
+
+.titleText {
+  font-weight: bold;
+  font-family: $fontTitle;
+  font-size: $textSizeTitle;
+
+  &.--blue {
+    color: $blue;
+  }
+  &.--pink {
+    color: $pink;
+  }
+  &.--white {
+    color: $background;
+  }
+}
+
+.normalText {
+  font-weight: lighter;
+  font-family: $fontText;
+  font-size: $textSizeLetter;
+
+  &.--blue {
+    color: $blue;
+  }
+  &.--pink {
+    color: $pink;
+  }
+  &.--white {
+    color: $background;
+  }
+  &.--lightBlack {
+    color: $blackLight;
+  }
+}
+
+.subtitleText {
+  font-weight: bold;
+  font-family: $fontText;
+  font-size: $textSizeSubtitle;
+
+  &.--blue {
+    color: $blue;
+  }
+  &.--pink {
+    color: $pink;
+  }
+}
+
+.links {
+  color: $blackDark;
+  font-family: $fontTitle;
+  font-size: $textSizeLetter;
+  font-weight: 400;
+  position: relative;
+  padding: 5px;
+
+  &.--blue {
+    color: $blue;
+  }
+  &.--pink {
+    color: $pink;
+  }
+  &.--white {
+    color: $background;
+  }
+  &.--lightBlack {
+    color: $blackLight;
+  }
+  &.--darkBlack {
+    color: $blackDark;
+  }
+
+}
+
+
+//-------------------------------GLOBAL HEADER------------------------------
+header {
+  background-color: $background;
+  padding: 1rem;
+  display:flex;
+  justify-content: space-between;
+  width: 100%;
+  height: 60px;
+  position: fixed;
+  z-index: 100;
+  box-shadow: 2px 2px 5px $blackLight;
+
+  //---------------------LOGO & LINKS--------------------
+  .leftItems{
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+
+    *{
+      margin-right: 80px;
+    }
+
+    .imageLogo {
+      width: 37px;
+      height: 37px;
+    }
+
+    nav {
+      display:flex;
+  
+      .vue-school-active-link {
+        color: $pink;
+      }
+
+      :hover {
+          color: $pink;
+      }
+  
+      :before {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 3px;
+        background: $pink;
+        border-radius: 20px;
+        transform: scaleX(0);
+        transition: transform 0.5s ease-in-out;
+      }
+  
+      :hover::before {
+        transform: scaleX(1);
+      }
+    }
+  }
+
+  //--------------------SEARCH BAR---------------------
+  .RightItems {
+    display: flex;
+    align-items: center;
+    width: 300px;
+    position: relative;
+
+    input#search{
+      width: 300px;
+      height: 30px;
+      background: #ffffff;
+      border-color: #ffffff;
+      border-style: solid;
+      font-size: 14px;
+      color: $blackLight;
+      padding-left: 45px;
+      border-radius: 50px;
+    
+      transition: border .55s ease;
+    }
+
+    input#search::-webkit-input-placeholder {
+      color: $blackLight;
+    }
+
+    .icon{
+      position: absolute;
+      margin-left: 17px;
+      margin-top: 2px;
+      color: $pink;
+    }
+
+    input#search:hover, input#search:focus, input#search:active{
+      outline:none;
+      border-color: #f4dfe3;
+    }
+  }
+
+}
+
+//-------------------------------GLOBAL FOOTER------------------------------
+footer {
+  height: 80px;
+  width: 100%;
+  background-color: $blue;
+  box-shadow: 0px -2px 5px $blackLight;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+
+  img {
+    height: 40px;
+    width: 40px;
+  }
+
+  nav {
+    display:flex;
+
+    .links {
+      padding: 25px;
+      color:  rgb(49, 91, 138);
+    }
+
+    .vue-school-active-link {
+      color: $background;
+    }
+
+    :hover {
+        color: $background;
+    }
+  }
+
+  .normalText {
+    color: rgb(49, 91, 138);
+  }
+}
+
+
+
+
