@@ -45,7 +45,7 @@
               <div class="pageInfo">
                 <h1 class="titleText --blue name">{{ slide.title }}</h1>
                 <h1 class="titleText --blue author">{{ slide.author }}</h1>
-                <a class="normalText --blue info">{{ slide.description }}</a>
+                <a class="normalText --small --blue info">{{ slide.description }}</a>
     
                 <div class="pageButton">
                   <button class="button --blue">Add to cart</button>

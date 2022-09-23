@@ -10,7 +10,7 @@
         <img src="src/assets/img/WebElements/pinkball.png" class="ball">
         <div>
             <h1 class="titleText --pink">The community</h1>
-            <a class="normalText --lightBlack">Where you can read book reviews from other book lovers and also share your thoughts about the books you read or want to buy.</a>
+            <a class="normalText --small --lightBlack">Where you can read book reviews from other book lovers and also share your thoughts about the books you read or want to buy.</a>
             <button class="button --pink">Subscribe</button>
         </div>
     </section>

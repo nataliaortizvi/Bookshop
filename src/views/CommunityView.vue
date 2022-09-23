@@ -1,5 +1,5 @@
 <template>
-  <h1>This is the community!</h1>
+  <h1>This is theee community!</h1>
 </template>
 
 <script>
@@ -13,4 +13,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
 </style>

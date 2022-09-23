@@ -59,6 +59,7 @@
     
         .subtitleText {
           line-height: 35px;
+          font-weight: 100;
         }
       }
     
