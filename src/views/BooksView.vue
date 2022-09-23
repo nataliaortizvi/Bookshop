@@ -1,24 +1,43 @@
 <script>
 import BookCard from "../components/Books/BookCard.vue";
+import { mapStores } from "pinia";
+import { useProductsStore } from "../stores/products";
+
 export default {
   components: {
     BookCard,
+  },
+
+  computed: {
+    ...mapStores(useProductsStore),
+    allProducts() {
+      return this.productsStore.getProducts;
+    },
   },
 };
 </script>
 
 <template>
-
   <section class="booksContainer">
     <div class="filtersSide">
       <h1 class="titleText --pink">Books</h1>
       <h2 class="normalText --pink --big">Category</h2>
     </div>
     <div class="booksSide">
-      <BookCard></BookCard>
+      <BookCard
+        v-for="product in allProducts"
+        :key="product.title"
+        class="bookCard"
+        :title="product.title"
+        :author="product.author"
+        :price="product.price"
+        :notLike="product.notLike"
+      ></BookCard>
+
+      <br />
+      <br />
     </div>
   </section>
-
 </template>
 
 
@@ -36,21 +55,27 @@ export default {
     flex-direction: column;
     width: 500px;
     padding: 100px 50px;
-    
+
     .titleText {
       margin-bottom: 50px;
     }
     .normalText {
       font-weight: 100;
     }
-    
   }
 
   .booksSide {
     background: linear-gradient($gradientBlue);
-    display: flex;
     width: 100%;
-    padding: 100px 50px;
+    padding: 120px 80px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    flex-grow: 1;
+    gap: 90px;
+
+
   }
 }
 </style>

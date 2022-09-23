@@ -2,7 +2,7 @@
 export default {
   data() {
     return {
-      noLike: true,
+      noLike: this.notLike,
     };
   },
 
@@ -15,9 +15,9 @@ export default {
   props: {
     title: String,
     author: String,
-    price: String,
+    price: Number,
     notLike: Boolean,
-  }
+  },
 };
 </script>
 
@@ -38,12 +38,16 @@ export default {
     <img src="src/assets/img/Books/garberBook.png" />
 
     <div class="cardContainer_info">
-      <h1 class="normalText --darkBlack --small">The Ballad of Never After</h1>
-      <h2 class="normalText --lightBlack">by Stephanie Garber</h2>
+      
+      <RouterLink :key="this.title" :to="`/details/${this.title}`">
+        <h1 class="normalText --darkBlack --small">{{ this.title }}</h1>
+      </RouterLink>
+
+      <h2 class="normalText --lightBlack">{{ this.author }}</h2>
 
       <div class="cardContainer_elem">
         <a>⭐️⭐️⭐️⭐️⭐️</a>
-        <h1 class="subtitleText --pink">$ 90</h1>
+        <h1 class="subtitleText --pink">$ {{ this.price }}</h1>
       </div>
     </div>
   </section>
@@ -51,7 +55,6 @@ export default {
 
 <style lang="scss" scoped>
 @import "src/assets/main.scss";
-
 
 .cardContainer {
   height: 430px;
@@ -71,7 +74,7 @@ export default {
     position: relative;
     box-sizing: border-box;
   }
-  
+
   .like-button {
     position: absolute;
     z-index: 20;
@@ -84,22 +87,22 @@ export default {
     box-shadow: 0 0.3em 0.6em rgba($blackDark, 0.3);
     cursor: pointer;
   }
-  
+
   .like-wrapper {
     display: grid;
     align-items: center;
     justify-content: center;
-  
+
     > * {
       margin: auto;
       grid-area: 1 / 1;
     }
   }
-  
+
   .heart {
     width: 0.5em;
     height: 0.5em;
-  
+
     > path {
       stroke: $pink;
       stroke-width: 2;
@@ -115,7 +118,7 @@ export default {
     width: 1em;
     border-radius: 50%;
     overflow: hidden;
-  
+
     &:before {
       content: "";
       position: absolute;
@@ -128,7 +131,7 @@ export default {
       transform: scale(0);
     }
   }
-  
+
   .liked .ripple {
     &:before {
       animation: ripple-out 0.5s cubic-bezier(0.7, 0, 0.3, 1);
