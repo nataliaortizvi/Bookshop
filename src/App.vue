@@ -14,7 +14,7 @@
    <!-----------------------------GLOBAL HEADER------------------------------->
   <header>
     <section class="leftItems">
-      <img src="src/assets/img/WebElements/logopeque.png" class="imageLogo">
+      <img src="/images/WebElements/logopeque.png" class="imageLogo">
   
       <nav>
         <RouterLink to="/" class="links --darkBlack" class-active="active">Home</RouterLink>
@@ -42,7 +42,7 @@
 
    <!-----------------------------GLOBAL FOOTER------------------------------->
   <footer>
-    <img src="src/assets/img/WebElements/logoCircle.png">
+    <img src="/images/WebElements/logoCircle.png">
     <nav>
       <RouterLink to="/" class="links" class-active="active">Home</RouterLink>
       <RouterLink to="/books" class="links" class-active="active">Books</RouterLink>

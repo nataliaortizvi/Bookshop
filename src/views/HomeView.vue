@@ -39,6 +39,10 @@ export default {
             image: 'src/assets/img/Books/man.jpg',
           },
           {
+            title: 'Horror',
+            image: 'src/assets/img/Books/horror.jpg',
+          },
+          {
             title: 'History',
             image: 'src/assets/img/Books/history.jpg',
           },
@@ -57,11 +61,7 @@ export default {
           {
             title: 'Educational',
             image: 'src/assets/img/Books/educational.jpg',
-          },
-          {
-            title: 'Kids',
-            image: 'src/assets/img/Books/kids.png',
-          },
+          }
         ]"
       ></SlideCarousel>
     </section>

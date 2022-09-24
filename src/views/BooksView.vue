@@ -32,6 +32,9 @@ export default {
         :author="product.author"
         :price="product.price"
         :notLike="product.notLike"
+        :image="product.image"
+        :stars="product.stars"
+        :id="product.id"
       ></BookCard>
 
       <br />
@@ -48,7 +51,7 @@ export default {
   display: flex;
   flex-direction: row;
   width: 100%;
-  height: 100vh;
+  
 
   .filtersSide {
     display: flex;
