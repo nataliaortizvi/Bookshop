@@ -4,7 +4,7 @@ export const useProductsStore = defineStore("products", {
     state: () => ({
         products: [
             {
-                title: 'Fairy Tale',
+                title: 'Fairy-Tale',
                 author: 'Stephen King',
                 notLike: true,
                 about: 'Legendary storyteller Stephen King goes into the deepest well of his imagination in this spellbinding novel about a seventeen-year-old boy who inherits the keys to a parallel world where good and evil are at war, and the stakes could not be higher—for that world or ours.',
@@ -14,7 +14,6 @@ export const useProductsStore = defineStore("products", {
                 place: 'North america',
                 image: '/images/books/stephenBook.png',
                 stars: '⭐️⭐️⭐️⭐️⭐️',
-                id: Math.random().toString(36).substr(2, 18),
             },
             {
                 title: 'The Ballad of Never After',
@@ -27,7 +26,6 @@ export const useProductsStore = defineStore("products", {
                 place: 'South america',
                 image: '/images/books/garberBook.png',
                 stars: '⭐️⭐️⭐️⭐️',
-                id: Math.random().toString(36).substr(2, 18),
             },
             {
                 title: 'Kingdom of the Feared',
@@ -40,7 +38,6 @@ export const useProductsStore = defineStore("products", {
                 place: 'Europe',
                 image: '/images/books/kerriBook.png',
                 stars: '⭐️⭐️⭐️',
-                id: Math.random().toString(36).substr(2, 18),
             },
             {
                 title: 'Belladonna',
@@ -53,7 +50,6 @@ export const useProductsStore = defineStore("products", {
                 place: 'Africa',
                 image: '/images/books/adalynBook.png',
                 stars: '⭐️⭐️⭐️⭐️⭐️',
-                id: Math.random().toString(36).substr(2, 18),
             },
             {
                 title: 'The First to Die at the End',
@@ -66,7 +62,6 @@ export const useProductsStore = defineStore("products", {
                 place: 'colombia',
                 image: '/images/books/silveraBook.jpg',
                 stars: '⭐️⭐️⭐️⭐️',
-                id: Math.random().toString(36).substr(2, 18),
             },
             {
                 title: 'The Marriage Portrait',
@@ -79,13 +74,13 @@ export const useProductsStore = defineStore("products", {
                 place: 'colombia',
                 image: '/images/books/hamnetBook.png',
                 stars: '⭐️⭐️⭐️⭐️⭐️',
-                id: Math.random().toString(36).substr(2, 18),
             },
         ],
-        localStorageProducts: []
+        localStorageProducts: [],
     }),
     getters: {
         getProducts: (state) => [...state.products],
+        
     },
     actions: {
         newProduct(product) {
@@ -98,7 +93,7 @@ export const useProductsStore = defineStore("products", {
             this.products = this.products.concat([...this.localStorageProducts])
         },
         getProductById(id) {
-            const filteredProducts = this.products.filter((product) => id.toLowerCase() === product.id.toLowerCase());
+            const filteredProducts = this.products.filter((product) => id.toLowerCase() === product.title.toLowerCase());
             return filteredProducts ? {...filteredProducts[0] } : null
         },
     },

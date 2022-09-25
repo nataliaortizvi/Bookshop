@@ -51,7 +51,7 @@ export default {
     border: none;
     border-radius: 50%;
     background-color: $background;
-    box-shadow: 0 0.3em 0.6em rgba($blackDark, 0.3);
+    box-shadow: 0px 0px 10px 1px rgba($blackDark, 0.3);
     cursor: pointer;
   }
 

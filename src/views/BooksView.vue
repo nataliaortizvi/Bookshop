@@ -14,6 +14,10 @@ export default {
       return this.productsStore.getProducts;
     },
   },
+
+  mounted(){
+    //this.productsStore.loadProducts()
+  }
 };
 </script>
 

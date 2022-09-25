@@ -4,6 +4,7 @@ import BooksView from '../views/BooksView.vue'
 import CommunityView from '../views/CommunityView.vue'
 import LoginView from '../views/LoginView.vue'
 import DetailView from '../views/DetailView.vue'
+import AddBookView from '../views/AddBookView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -33,6 +34,11 @@ const router = createRouter({
       path: '/details/:productId',
       name: 'detail',
       component: DetailView
+    },
+    {
+      path: '/addbook',
+      name: 'addbook',
+      component: AddBookView
     },
   ]
 })

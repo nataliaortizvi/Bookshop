@@ -1,4 +1,6 @@
 <script>
+import LoveButton from "./LoveButton.vue";
+
 export default {
   props: {
     title: String,
@@ -9,13 +11,17 @@ export default {
     image: String,
     stars: String,
   },
+
+  components: {
+    LoveButton,
+  },
+
 };
 </script>
 
      
 <template>
-
-<div class="detailContainer">
+  <div class="detailContainer">
     <img :src="this.image" />
     <div class="detailInfo">
       <h1 class="titleText --blue">{{ this.title }}</h1>
@@ -23,9 +29,7 @@ export default {
       <div class="starsAuthor">
         <a class="normalText --blue --small">{{ this.author }}</a>
         <p class="normalText --blue --small">|</p>
-        <a class="normalText --lightBlack --small">{{
-          this.stars
-        }}</a>
+        <a class="normalText --lightBlack --small">{{ this.stars }}</a>
       </div>
 
       <p class="normalText --lightBlack --small">
@@ -34,12 +38,11 @@ export default {
       <p class="titleText --blue price">$ {{ this.price }}</p>
       <div class="btnlove">
         <button class="button --blue">Add to cart</button>
-        <!--LoveButton class="lovebtn" :notLike="this.notLike"></LoveButton-->
+        <!------arreglar boton like------>
+        <LoveButton class="lovebtn" :notLike=true></LoveButton>
       </div>
     </div>
   </div>
-
-
 </template>
 
 
@@ -49,16 +52,25 @@ export default {
 .detailContainer {
   display: flex;
   flex-direction: row;
-  width: 700px;
-  height: 90vh;
-  padding: 100px;
-  background-color: rgb(234, 234, 234);
+  justify-content: center;
+  align-content: center;
+  width: 100%;
+  height: 100%;
+  padding: 150px 40px 100px 40px;
+  gap: 50px;
 
+  img {
+    width: 300px;
+    height: 500px;
+    border-radius: 20px;
+    box-shadow: 2px 2px 5px $blackLight;
+  }
   .detailInfo {
     display: flex;
     flex-direction: column;
     justify-content: center;
     gap: 10px;
+    width: 400px;
 
     .btnlove {
       position: relative;
@@ -69,7 +81,7 @@ export default {
       .lovebtn {
         position: absolute;
         z-index: 20;
-        right: 230px;
+        right: 150px;
         top: -5px;
       }
     }
@@ -92,6 +104,4 @@ export default {
     }
   }
 }
-
-
 </style>

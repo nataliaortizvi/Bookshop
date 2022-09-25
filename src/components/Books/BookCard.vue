@@ -25,12 +25,12 @@ export default {
 
 
     <!--------------------card info-------------------->
-    <RouterLink :to="`/details/${this.id}`">
+    <RouterLink :to="`/details/${this.title}`">
       <img :src="this.image" />
     </RouterLink>
 
     <div class="cardContainer_info">
-      <RouterLink :key="this.id" :to="`/details/${this.id}`">
+      <RouterLink :key="this.title" :to="`/details/${this.title}`">
         <h1 class="normalText --darkBlack --small">{{ this.title }}</h1>
       </RouterLink>
 

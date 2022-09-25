@@ -19,8 +19,9 @@
       <nav>
         <RouterLink to="/" class="links --darkBlack" class-active="active">Home</RouterLink>
         <RouterLink to="/books" class="links --darkBlack" class-active="active">Books</RouterLink>
-        <RouterLink to="/community" class="links --darkBlack" class-active="active">Community</RouterLink>
-        <RouterLink to="/login" class="links --darkBlack" class-active="active">Login</RouterLink>
+        <!--RouterLink to="/community" class="links --darkBlack" class-active="active">Community</RouterLink-->
+        <!--RouterLink to="/login" class="links --darkBlack" class-active="active">Login</RouterLink-->
+        <RouterLink to="/addbook" class="links --darkBlack" class-active="active">Add book</RouterLink>
       </nav>
     </section>
       
