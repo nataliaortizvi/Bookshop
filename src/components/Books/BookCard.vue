@@ -9,12 +9,17 @@ export default {
     notLike: Boolean,
     image: String,
     stars: String,
-    id: String,
   },
 
   components: {
     LoveButton,
   },
+
+  data() {
+    return {
+      titleRoute: this.title.replace(/ /g, ""),
+    }
+  }
 };
 </script>
 
@@ -23,14 +28,13 @@ export default {
     <!--------------------like button-------------------->
     <LoveButton class="lovebtn" :notLike=true></LoveButton>
 
-
     <!--------------------card info-------------------->
-    <RouterLink :to="`/details/${this.title}`">
+    <RouterLink :to="`/details/${this.titleRoute}`">
       <img :src="this.image" />
     </RouterLink>
 
     <div class="cardContainer_info">
-      <RouterLink :key="this.title" :to="`/details/${this.title}`">
+      <RouterLink :key="this.titleRoute" :to="`/details/${this.titleRoute}`">
         <h1 class="normalText --darkBlack --small">{{ this.title }}</h1>
       </RouterLink>
 
@@ -73,6 +77,7 @@ export default {
     border-radius: 15px 15px 0px 0px;
     margin-top: 10px;
     box-shadow: 0px 4px 5px $blackDark;
+    object-fit: fill;
   }
 
   .cardContainer_info {

@@ -8,6 +8,12 @@ export default {
     BookCard,
   },
 
+  data() {
+    return {
+      currentProducts: {},
+    };
+  },
+
   computed: {
     ...mapStores(useProductsStore),
     allProducts() {
@@ -15,9 +21,22 @@ export default {
     },
   },
 
-  mounted(){
-    //this.productsStore.loadProducts()
-  }
+  methods: {
+    noFilter() {
+      this.currentProducts = this.productsStore.getProducts;
+    },
+
+    placeFilter(p) {
+      const theFilter = this.currentProducts.filter(
+        (product) => product.place.toLowerCase() === p.toLowerCase()
+      );
+      this.currentProducts = theFilter;
+    },
+  },
+
+  mounted() {
+    this.currentProducts = this.productsStore.getProducts;
+  },
 };
 </script>
 
@@ -25,11 +44,37 @@ export default {
   <section class="booksContainer">
     <div class="filtersSide">
       <h1 class="titleText --pink">Books</h1>
+      <button
+        class="button --linePink"
+        @click="noFilter">
+        Remove filters
+      </button>
+
       <h2 class="normalText --pink --big">Category</h2>
+      <h2 class="normalText --pink --big">Price</h2>
+      <h2 class="normalText --pink --big">Year</h2>
+
+      <h2 class="normalText --pink --big">Location</h2>
+      <button
+        class="button --pink"
+        @click="
+          () => {
+            placeFilter('north america');
+          }
+        "
+      >
+        filter
+      </button>
+
+     
     </div>
+
+
+
+
     <div class="booksSide">
       <BookCard
-        v-for="product in allProducts"
+        v-for="product in currentProducts"
         :key="product.title"
         class="bookCard"
         :title="product.title"
@@ -38,7 +83,6 @@ export default {
         :notLike="product.notLike"
         :image="product.image"
         :stars="product.stars"
-        :id="product.id"
       ></BookCard>
 
       <br />
@@ -55,7 +99,6 @@ export default {
   display: flex;
   flex-direction: row;
   width: 100%;
-  
 
   .filtersSide {
     display: flex;
@@ -64,7 +107,7 @@ export default {
     padding: 100px 50px;
 
     .titleText {
-      margin-bottom: 50px;
+      margin-bottom: 30px;
     }
     .normalText {
       font-weight: 100;
@@ -81,8 +124,6 @@ export default {
     justify-content: flex-start;
     flex-grow: 1;
     gap: 90px;
-
-
   }
 }
 </style>

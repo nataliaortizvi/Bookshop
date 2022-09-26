@@ -4,7 +4,7 @@ export const useProductsStore = defineStore("products", {
     state: () => ({
         products: [
             {
-                title: 'Fairy-Tale',
+                title: 'Fairy Tale',
                 author: 'Stephen King',
                 notLike: true,
                 about: 'Legendary storyteller Stephen King goes into the deepest well of his imagination in this spellbinding novel about a seventeen-year-old boy who inherits the keys to a parallel world where good and evil are at war, and the stakes could not be higher—for that world or ours.',
@@ -35,7 +35,7 @@ export const useProductsStore = defineStore("products", {
                 price: 12.45,
                 category: ['history', 'horror'],
                 year: 2021,
-                place: 'Europe',
+                place: 'north america',
                 image: '/images/books/kerriBook.png',
                 stars: '⭐️⭐️⭐️',
             },
@@ -59,7 +59,7 @@ export const useProductsStore = defineStore("products", {
                 price: 15.99,
                 category: ['fiction', 'kids'],
                 year: 2020,
-                place: 'colombia',
+                place: 'Asia',
                 image: '/images/books/silveraBook.jpg',
                 stars: '⭐️⭐️⭐️⭐️',
             },
@@ -71,7 +71,7 @@ export const useProductsStore = defineStore("products", {
                 price: 28.00,
                 category: ['educational', 'history'],
                 year: 2018,
-                place: 'colombia',
+                place: 'Europe',
                 image: '/images/books/hamnetBook.png',
                 stars: '⭐️⭐️⭐️⭐️⭐️',
             },
@@ -93,8 +93,13 @@ export const useProductsStore = defineStore("products", {
             this.products = this.products.concat([...this.localStorageProducts])
         },
         getProductById(id) {
-            const filteredProducts = this.products.filter((product) => id.toLowerCase() === product.title.toLowerCase());
+            const filteredProducts = this.products.filter((product) => id.toLowerCase().replace(/ /g, "")  === product.title.toLowerCase().toLowerCase().replace(/ /g, "") );
             return filteredProducts ? {...filteredProducts[0] } : null
+        },
+        getProductsByPlace(p) {
+            const filteredProducts = this.products.filter((product) => p.toLowerCase().replace(/ /g, "")  === product.place.toLowerCase().toLowerCase().replace(/ /g, "") );
+            return filteredProducts ? {...filteredProducts } : null
+            console.log(filteredProducts);
         },
     },
 });

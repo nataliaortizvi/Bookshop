@@ -64,6 +64,7 @@ export default {
     height: 500px;
     border-radius: 20px;
     box-shadow: 2px 2px 5px $blackLight;
+    object-fit: fill;
   }
   .detailInfo {
     display: flex;

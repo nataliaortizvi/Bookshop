@@ -55,10 +55,6 @@ export default {
             image: 'src/assets/img/Books/food.jpg',
           },
           {
-            title: 'Classics',
-            image: 'src/assets/img/Books/classic.jpg',
-          },
-          {
             title: 'Educational',
             image: 'src/assets/img/Books/educational.jpg',
           }

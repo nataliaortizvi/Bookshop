@@ -11,7 +11,6 @@ export default {
   data() {
     return {
       currentProduct: {},
-      titleNew: "",
     };
   },
   computed: {
@@ -25,7 +24,6 @@ export default {
       this.$route.params.productId
     );
 
-    this.titleNew = this.currentProduct.title.replace("-", " ");
   },
 };
 </script>
@@ -36,7 +34,7 @@ export default {
     <img src="/images/WebElements/detailVector.png">
 
     <BookDetail
-      :title="this.titleNew"
+      :title="currentProduct.title"
       :author="currentProduct.author"
       :price="currentProduct.price"
       :notLike="currentProduct.notLike"

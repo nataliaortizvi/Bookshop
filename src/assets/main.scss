@@ -51,6 +51,28 @@ body {
     border-width: 2px;
     color: $blue;
   }
+
+  &.--lineWhite {
+    background-color: transparent;
+    border-color: $background;
+    border-style: solid;
+    border-width: 2px;
+    color: $background;
+  }
+
+  &.--linePink {
+    background-color: transparent;
+    border-color: $pink;
+    border-style: solid;
+    border-width: 2px;
+    color: $pink;
+  }
+
+  &.--white {
+    background-color: $background;
+    color: $pink;
+  }
+
   &.--pink {
     background-color: $pink;
   }
