@@ -37,6 +37,16 @@ export default {
       :slidesPerView="4"
       :centeredSlides="false"
       :spaceBetween="10"
+      :breakpoints="{
+        '@1.00': {
+          slidesPerView: 4,
+          spaceBetween: 10,
+        },
+        '@0.30': {
+          slidesPerView: 1,
+          spaceBetween: 10,
+        },
+      }"
       :direction="'horizontal'"
       :mousewheel="false"
       :loop="false"
@@ -46,14 +56,12 @@ export default {
       class="mySwiper"
     >
       <swiper-slide v-for="slide in slides" :key="slide.title">
-
         <RouterLink to="/books">
           <div class="card">
             <img :src="slide.image" />
             <a class="links --white">{{ slide.title }}</a>
           </div>
         </RouterLink>
-
       </swiper-slide>
     </swiper>
   </section>
@@ -105,6 +113,17 @@ export default {
 
   &:hover {
     transform: scale(1.08);
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .swiper {
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+
+  .swiper-slide {
+    margin-bottom: 20px;
   }
 }
 </style>

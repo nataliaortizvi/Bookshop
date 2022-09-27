@@ -292,6 +292,7 @@ export default {
         :notLike="product.notLike"
         :image="product.image"
         :stars="product.stars"
+        :year="product.year"
       ></BookCard>
 
       <br />

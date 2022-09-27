@@ -57,7 +57,7 @@ export default {
           {
             title: 'Educational',
             image: 'src/assets/img/Books/educational.jpg',
-          }
+          },
         ]"
       ></SlideCarousel>
     </section>
@@ -162,6 +162,35 @@ export default {
   .titleText {
     display: block;
     text-align: center;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .category {
+    margin-bottom: 0px;
+    background-color: $background;
+    margin-top: 0px;
+
+    .titleText {
+      margin: 0px 0px 0px 0px;
+      text-align: center;
+    }
+    .carouselContainer {
+      width: 100%;
+      z-index: 50;
+      background: $background;
+    }
+  }
+
+  .--quote {
+    width: 100%;
+    height: 350px;
+    text-align: center;
+    padding: 10px 50px;
+    background-size: cover;
+    background-position: -500px 0px;
+    font-size: 20px;
+    backdrop-filter: blur(3px);
   }
 }
 </style>

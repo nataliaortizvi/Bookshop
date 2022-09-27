@@ -9,6 +9,7 @@ export default {
     notLike: Boolean,
     image: String,
     stars: String,
+    year: Number,
   },
 
   components: {
@@ -18,15 +19,15 @@ export default {
   data() {
     return {
       titleRoute: this.title.replace(/ /g, ""),
-    }
-  }
+    };
+  },
 };
 </script>
 
 <template>
   <section class="cardContainer">
     <!--------------------like button-------------------->
-    <LoveButton class="lovebtn" :notLike=true></LoveButton>
+    <LoveButton class="lovebtn" :notLike="true"></LoveButton>
 
     <!--------------------card info-------------------->
     <RouterLink :to="`/details/${this.titleRoute}`">
@@ -38,7 +39,7 @@ export default {
         <h1 class="normalText --darkBlack --small">{{ this.title }}</h1>
       </RouterLink>
 
-      <h2 class="normalText --lightBlack">{{ this.author }}</h2>
+      <h2 class="normalText --lightBlack">{{ this.author }} ({{ this.year }})</h2>
 
       <div class="cardContainer_elem">
         <a>{{ this.stars }}</a>
@@ -62,7 +63,6 @@ export default {
   align-items: center;
   box-shadow: 2px 2px 8px $blackLight;
   position: relative;
-
 
   .lovebtn {
     position: absolute;
