@@ -18,6 +18,7 @@ const router = createRouter({
     {
       path: '/books',
       name: 'books',
+      props: true,
       component: BooksView
     },
     {

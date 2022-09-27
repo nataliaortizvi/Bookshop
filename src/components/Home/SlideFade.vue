@@ -28,6 +28,8 @@ export default {
       modules: [Navigation, Autoplay],
     };
   },
+
+
 };
 </script>
     
@@ -43,7 +45,6 @@ export default {
       class="mySwiper"
     >
       <swiper-slide v-for="slide in slides" :key="slide">
-       
         <!--BookDetail
         :title="slide.title"
           :author="slide.author"
@@ -66,11 +67,15 @@ export default {
 
             <div class="pageButton">
               <button class="button --blue">Add to cart</button>
+              <RouterLink
+                :to="`/details/${slide.title}`"
+              >
               <button class="button --lineBlue">More info</button>
+              </RouterLink>
+              
             </div>
           </div>
         </div>
-        
       </swiper-slide>
     </swiper>
   </section>

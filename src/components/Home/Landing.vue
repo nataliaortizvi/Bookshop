@@ -9,7 +9,6 @@
     }
     </script>
     
-    
     <template>
       <!--html-->
       <section class="landing">
@@ -93,4 +92,8 @@
         }
       }
     }
+
+
+
+
     </style>

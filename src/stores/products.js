@@ -96,10 +96,16 @@ export const useProductsStore = defineStore("products", {
             const filteredProducts = this.products.filter((product) => id.toLowerCase().replace(/ /g, "")  === product.title.toLowerCase().toLowerCase().replace(/ /g, "") );
             return filteredProducts ? {...filteredProducts[0] } : null
         },
+
+
+
         getProductsByPlace(p) {
             const filteredProducts = this.products.filter((product) => p.toLowerCase().replace(/ /g, "")  === product.place.toLowerCase().toLowerCase().replace(/ /g, "") );
             return filteredProducts ? {...filteredProducts } : null
-            console.log(filteredProducts);
+        },
+        getProductsByYear(y) {
+            const filteredProducts = this.products.filter((product) => p.toLowerCase().replace(/ /g, "")  === product.place.toLowerCase().toLowerCase().replace(/ /g, "") );
+            return filteredProducts ? {...filteredProducts } : null
         },
     },
 });

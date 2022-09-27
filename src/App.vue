@@ -4,7 +4,6 @@ import { useProductsStore } from "./stores/products";
 
 import { RouterLink, RouterView } from "vue-router";
 
-
 export default {
   components: {
     RouterLink,
@@ -12,11 +11,22 @@ export default {
   },
   computed: {
     ...mapStores(useProductsStore),
-    
   },
 
-  mounted(){
-    this.productsStore.loadProducts()
+  mounted() {
+    this.productsStore.loadProducts();
+  },
+
+  data() {
+    return {
+      menuResponsive: false,
+    };
+  },
+
+  methods: {
+    menuActive() {
+      this.menuResponsive = !this.menuResponsive;
+    },
   },
 };
 </script>
@@ -26,7 +36,9 @@ export default {
   <!-----------------------------GLOBAL HEADER------------------------------->
   <header>
     <section class="leftItems">
-      <img src="/images/WebElements/logopeque.png" class="imageLogo" />
+      <RouterLink to="/">
+        <img src="/images/WebElements/logopeque.png" class="imageLogo" />
+      </RouterLink>
 
       <nav>
         <RouterLink to="/" class="links --darkBlack" class-active="active"
@@ -57,6 +69,21 @@ export default {
       <input id="search" placeholder="Search..." />
       <!--input type="search" id="search" placeholder="Search..."/-->
     </section>
+
+    <div class="hamburger" @click="menuActive" :class="{ is_active: !menuResponsive }">
+      <div class="_layer -top"></div>
+      <div class="_layer -mid"></div>
+      <div class="_layer -bottom"></div>
+    </div>
+
+    <nav class="menuppal" :class="{ is_active: !menuResponsive }" @click="menuActive">
+      <ul>
+        <li><RouterLink class="links --pink" to="/">Home</RouterLink></li>
+        <li><RouterLink class="links --pink" to="/books">Books</RouterLink></li>
+        <li><RouterLink class="links --pink" to="/addbook">Add book</RouterLink></li>
+      </ul>
+    </nav>
+
   </header>
 
   <!---------------------------------BODY------------------------------------>
