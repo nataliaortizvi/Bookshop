@@ -39,7 +39,9 @@ export default {
         <h1 class="normalText --darkBlack --small">{{ this.title }}</h1>
       </RouterLink>
 
-      <h2 class="normalText --lightBlack">{{ this.author }} ({{ this.year }})</h2>
+      <h2 class="normalText --lightBlack">
+        {{ this.author }} ({{ this.year }})
+      </h2>
 
       <div class="cardContainer_elem">
         <a>{{ this.stars }}</a>
@@ -51,6 +53,7 @@ export default {
 
 <style lang="scss" scoped>
 @import "src/assets/main.scss";
+
 
 .cardContainer {
   height: 430px;
@@ -108,6 +111,59 @@ export default {
 
       h1 {
         font-weight: 500;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .cardContainer {
+    height: 380px;
+    width: 160px;
+    justify-content: flex-start;
+    
+
+    .lovebtn {
+      position: absolute;
+      z-index: 20;
+      right: -10px;
+      top: -10px;
+    }
+
+    img {
+      height: 215px;
+      width: 145px;
+      margin-top: 6px;
+    }
+
+    .cardContainer_info {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
+      width: 135px;
+      line-height: 22px;
+      margin-top: 5px;
+
+      h1 {
+        font-weight: lighter;
+      }
+
+      h2 {
+        font-weight: lighter;
+        font-size: 16px;
+      }
+
+      .cardContainer_elem {
+        flex-direction: column;
+        align-items: flex-start;
+        width: 150px;
+
+        h1 {
+          font-weight: 500;
+          margin-top: 2px;
+          font-size: 18px;
+        }
       }
     }
   }

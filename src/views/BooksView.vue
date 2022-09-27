@@ -4,10 +4,6 @@ import { mapStores } from "pinia";
 import { useProductsStore } from "../stores/products";
 
 export default {
-  props: {
-    cat: String,
-  },
-
   components: {
     BookCard,
   },
@@ -18,7 +14,7 @@ export default {
       normalProducts: [],
       arrayToShow: [],
 
-      category: [],
+      categorySelected: [],
       placeSelected: "",
       yearOrderSelected: "",
       priceOrderSelected: "",
@@ -35,7 +31,7 @@ export default {
   methods: {
     noFilter() {
       this.arrayToShow = this.normalProducts;
-      this.category = "";
+      this.categorySelected = [];
       this.placeSelected = "";
       this.yearOrderSelected = "";
       this.priceOrderSelected = "";
@@ -44,77 +40,67 @@ export default {
     categoryFilter(c) {
       console.log(c.toString());
 
-      const fil = this.currentProducts.filter((product) =>
-        product.category
-          .toString()
-          .toLowerCase()
-          .replace(/ /g, "")
-          .includes(c.toString().toLowerCase().replace(/ /g, ""))
-      );
-
-      this.arrayToShow = fil;
+      if (c != "") {
+        this.arrayToShow = this.currentProducts.filter((product) =>
+          product.category
+            .toString()
+            .toLowerCase()
+            .replace(/ /g, "")
+            .includes(c.toString().toLowerCase().replace(/ /g, ""))
+        );
+      } else {
+        this.arrayToShow = this.normalProducts;
+      }
     },
 
     placeFilter(p) {
       console.log(p);
 
       if (p != "") {
-        const filtered = this.currentProducts.filter(
+        this.arrayToShow = this.currentProducts.filter(
           (product) =>
             product.place.toLowerCase().replace(/ /g, "") ===
             p.toLowerCase().replace(/ /g, "")
         );
-
-        this.arrayToShow = filtered;
+      } else {
+        this.arrayToShow = this.normalProducts;
       }
     },
 
-    orderFilter(x) {
-      console.log(x);
-      switch (x) {
+    orderPriceFilter(p) {
+      console.log(p);
+      switch (p) {
         case "":
-          console.log("holawas");
+          console.log("hola PRICEE");
           this.arrayToShow = this.normalProducts;
           break;
         case "Low to high":
           this.arrayToShow.sort((a, b) => a.price - b.price);
+          this.yearOrderSelected = "";
           break;
         case "High to low":
           this.arrayToShow.sort((b, a) => a.price - b.price);
-          break;
-        case "Old to new":
-          this.arrayToShow.sort((a, b) => a.year - b.year);
-          break;
-        case "New to old":
-          this.arrayToShow.sort((b, a) => a.year - b.year);
+          this.yearOrderSelected = "";
           break;
       }
     },
 
-    createNewProduct() {
-      const newProduct = {
-        title: this.title,
-        author: this.author,
-        about: this.about,
-        category: this.category,
-        price: this.price,
-        year: this.year,
-        place: this.place,
-        image: this.image,
-        notLike: true,
-        stars: "⭐️⭐️⭐️",
-      };
-
-      console.log(newProduct);
-      this.productsStore.newProduct(newProduct);
-      this.title = "";
-      this.author = "";
-      this.about = "";
-      this.category = [];
-      this.price = "";
-      this.year = "";
-      this.place = "";
-      this.image = "";
+    orderYearFilter(y) {
+      console.log(y);
+      switch (y) {
+        case "":
+          console.log("hola YEARR");
+          this.arrayToShow = this.normalProducts;
+          break;
+        case "Old to new":
+          this.arrayToShow.sort((a, b) => a.year - b.year);
+          this.priceOrderSelected = "";
+          break;
+        case "New to old":
+          this.arrayToShow.sort((b, a) => a.year - b.year);
+          this.priceOrderSelected = "";
+          break;
+      }
     },
   },
 
@@ -122,24 +108,27 @@ export default {
     this.normalProducts = this.productsStore.getProducts;
     this.currentProducts = JSON.parse(JSON.stringify(this.normalProducts));
     this.arrayToShow = this.currentProducts;
-
-    console.log(this.cat);
   },
 };
 </script>
 
 <template>
   <section class="booksContainer">
+    <button class="btn button --white">Filters</button>
+
     <div class="filtersSide">
       <h1 class="titleText --pink">Books</h1>
 
       <label class="normalText --pink --big">Category</label>
-      <div class="checkContainer" @change="() => categoryFilter(category)">
+      <div
+        class="checkContainer"
+        @change="() => categoryFilter(categorySelected)"
+      >
         <input
           class="checkbox"
           type="checkbox"
           value="romance"
-          v-model="category"
+          v-model="categorySelected"
           id="Romance"
         />
         <label class="normalText --small --lightBlack" for="Romance"
@@ -150,7 +139,7 @@ export default {
           class="checkbox"
           type="checkbox"
           value="kids"
-          v-model="category"
+          v-model="categorySelected"
           id="Kids"
         />
         <label class="normalText --small --lightBlack" for="Kids">Kids</label>
@@ -159,7 +148,7 @@ export default {
           class="checkbox"
           type="checkbox"
           value="fiction"
-          v-model="category"
+          v-model="categorySelected"
           id="Fiction"
         />
         <label class="normalText --small --lightBlack" for="Fiction"
@@ -170,7 +159,7 @@ export default {
           class="checkbox"
           type="checkbox"
           value="biographies"
-          v-model="category"
+          v-model="categorySelected"
           id="Biographies"
         />
         <label class="normalText --small --lightBlack" for="Biographies"
@@ -181,7 +170,7 @@ export default {
           class="checkbox"
           type="checkbox"
           value="horror"
-          v-model="category"
+          v-model="categorySelected"
           id="Horror"
         />
         <label class="normalText --small --lightBlack" for="Horror"
@@ -192,7 +181,7 @@ export default {
           class="checkbox"
           type="checkbox"
           value="history"
-          v-model="category"
+          v-model="categorySelected"
           id="History"
         />
         <label class="normalText --small --lightBlack" for="History"
@@ -203,7 +192,7 @@ export default {
           class="checkbox"
           type="checkbox"
           value="mystery"
-          v-model="category"
+          v-model="categorySelected"
           id="Mystery"
         />
         <label class="normalText --small --lightBlack" for="Mystery"
@@ -214,7 +203,7 @@ export default {
           class="checkbox"
           type="checkbox"
           value="food"
-          v-model="category"
+          v-model="categorySelected"
           id="Food"
         />
         <label class="normalText --small --lightBlack" for="Food">Food</label>
@@ -223,7 +212,7 @@ export default {
           class="checkbox"
           type="checkbox"
           value="educational"
-          v-model="category"
+          v-model="categorySelected"
           id="Educational"
         />
         <label class="normalText --small --lightBlack" for="Educational"
@@ -236,7 +225,7 @@ export default {
         v-model="priceOrderSelected"
         @change="
           () => {
-            orderFilter(priceOrderSelected);
+            orderPriceFilter(priceOrderSelected);
           }
         "
       >
@@ -250,7 +239,7 @@ export default {
         v-model="yearOrderSelected"
         @change="
           () => {
-            orderFilter(yearOrderSelected);
+            orderYearFilter(yearOrderSelected);
           }
         "
       >
@@ -276,7 +265,14 @@ export default {
         <option value="Africa">Africa</option>
       </select>
 
-      <button class="button --linePink removebtn" @click="noFilter">
+      <button
+        class="button --linePink removebtn"
+        @click="
+          () => {
+            noFilter();
+          }
+        "
+      >
         Remove filters
       </button>
     </div>
@@ -311,6 +307,9 @@ export default {
   background: linear-gradient($gradientBlue);
   min-height: 90vh;
 
+  .filtersbtn {
+    display: none;
+  }
   .filtersSide {
     display: flex;
     flex-direction: column;
@@ -406,6 +405,31 @@ export default {
     flex-grow: 1;
     gap: 80px;
     margin-left: 400px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .booksContainer {
+    flex-direction: column;
+
+    .btn {
+      display: show;
+      margin: 30px 100px;
+    }
+    .filtersSide {
+      display: none;
+    }
+
+    .booksSide {
+      width: 100%;
+      padding: 30px 10px 20px 10px;
+      display: grid;
+      justify-content: center;
+      align-items: center;
+      grid-template-columns: auto auto;
+      gap: 20px;
+      margin-left: 0px;
+    }
   }
 }
 </style>

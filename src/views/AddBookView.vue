@@ -277,25 +277,34 @@ export default {
     >
       Add book!
     </button>
-    <Modal :showButton="true" title="Are you sure you want to add this book to Bookie?" v-if="showModal" class="modal">
+    <Modal
+      :showButton="true"
+      title="Are you sure you want to add this book to Bookie?"
+      v-if="showModal"
+      class="modal"
+    >
       <RouterLink to="/books">
-        <button class="button --white" @click="()=> {
-          closeModal();
-          createNewProduct();
-        }">Yes</button>
+        <button
+          class="button --white"
+          @click="
+            () => {
+              closeModal();
+              createNewProduct();
+            }
+          "
+        >
+          Yes
+        </button>
       </RouterLink>
       <button class="button --white" @click="closeModal">No</button>
     </Modal>
   </section>
-
-
 </template>
 
 
 
 <style lang="scss" scoped>
 @import "src/assets/main.scss";
-
 
 .modal {
   .button {
@@ -327,9 +336,8 @@ export default {
 
   .checkContainer {
     width: 400px;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: auto auto auto;
     justify-content: space-between;
 
     .checkbox {
@@ -427,5 +435,61 @@ input {
   content: "File Uploaded";
   background: $pink;
   color: $background;
+}
+
+@media screen and (max-width: 600px) {
+  .formContainer {
+    padding: 30px 20px;
+    text-align: center;
+
+    form {
+      width: 320px;
+    }
+
+    .checkContainer {
+      width: 280px;
+      display: grid;
+      grid-template-columns: auto auto auto;
+
+      .checkbox {
+        opacity: 0; // hide it
+        display: none;
+
+        & + label {
+          position: relative;
+          cursor: pointer;
+          padding: 0;
+        }
+
+        // Box.
+        & + label:before {
+          content: "";
+          margin-top: 0px;
+          margin-right: 10px;
+          width: 15px;
+          height: 15px;
+          border-radius: 5px;
+          border: 2px solid $pink;
+        }
+
+        // Box checked
+        &:checked + label:before {
+          background: $pink;
+          border-radius: 5px;
+        }
+
+        // Checkmark. Could be replaced with an image
+        &:checked + label:after {
+          content: "X";
+          top: 0;
+          position: absolute;
+          left: 4.5px;
+          width: 5px;
+          height: 10px;
+          color: $background;
+        }
+      }
+    }
+  }
 }
 </style>

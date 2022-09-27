@@ -28,8 +28,6 @@ export default {
       modules: [Navigation, Autoplay],
     };
   },
-
-
 };
 </script>
     
@@ -67,12 +65,9 @@ export default {
 
             <div class="pageButton">
               <button class="button --blue">Add to cart</button>
-              <RouterLink
-                :to="`/details/${slide.title}`"
-              >
-              <button class="button --lineBlue">More info</button>
+              <RouterLink :to="`/details/${slide.title}`">
+                <button class="button --lineBlue">More info</button>
               </RouterLink>
-              
             </div>
           </div>
         </div>
@@ -136,6 +131,35 @@ export default {
 
       .button {
         margin: 10px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .page {
+    flex-direction: column;
+    align-items: center;
+
+    img {
+      width: 200px;
+      height: 320px;
+      margin-right: 0px;
+    }
+    .pageInfo {
+      align-items: center;
+      width: 250px;
+      text-align: center;
+  
+      .info {
+        display: none;
+      }
+      .pageButton {
+        margin: 20px 0px;
+
+        .button {
+          margin: 5px;
+        }
       }
     }
   }

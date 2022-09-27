@@ -15,7 +15,6 @@ export default {
   components: {
     LoveButton,
   },
-
 };
 </script>
 
@@ -39,7 +38,7 @@ export default {
       <div class="btnlove">
         <button class="button --blue">Add to cart</button>
         <!------arreglar boton like------>
-        <LoveButton class="lovebtn" :notLike=true></LoveButton>
+        <LoveButton class="lovebtn" :notLike="true"></LoveButton>
       </div>
     </div>
   </div>
@@ -102,6 +101,41 @@ export default {
     .price {
       font-size: 30px;
       margin: 10px 0px;
+    }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .detailContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    padding: 30px 10px 50px 20px;
+
+    img {
+      width: 220px;
+      height: 350px;
+    }
+    .detailInfo {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 0px 20px;
+      text-align: center;
+      gap: 10px;
+      width: 90%;
+
+      .btnlove {
+
+      .lovebtn {
+        display: none;
+      }
+    }
+
     }
   }
 }

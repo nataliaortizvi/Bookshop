@@ -357,7 +357,7 @@ footer {
   //-------------------------------GLOBAL HEADER------------------------------
   header {
     width: 100%;
-    position: relative;
+    position: fixed;
 
     //---------------------LOGO & LINKS--------------------
     .leftItems {
@@ -424,6 +424,39 @@ footer {
       list-style: none;
       text-align: center;
       margin-top: 40px;
+    }
+  }
+
+
+  footer {
+    height: 150px;
+    gap: 20px;
+  
+    img {
+      height: 40px;
+      width: 40px;
+    }
+  
+    nav {
+      display: flex;
+      flex-direction: column;
+  
+      .links {
+        padding: 0px;
+        color: rgb(49, 91, 138);
+      }
+  
+      .vue-school-active-link {
+        color: $background;
+      }
+  
+      :hover {
+        color: $background;
+      }
+    }
+  
+    .normalText {
+      color: rgb(49, 91, 138);
     }
   }
 

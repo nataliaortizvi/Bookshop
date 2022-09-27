@@ -192,5 +192,13 @@ export default {
     font-size: 20px;
     backdrop-filter: blur(3px);
   }
+
+
+  .bestSellers {
+  width: 100%;
+  height: 100vh;
+  padding: 20px;
+
+}
 }
 </style>
