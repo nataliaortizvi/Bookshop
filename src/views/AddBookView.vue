@@ -277,26 +277,26 @@ export default {
     >
       Add book!
     </button>
-    <Modal
-      :showButton="true"
-      title="Are you sure you want to add this book to Bookie?"
-      v-if="showModal"
-      class="modal"
-    >
-      <RouterLink to="/books">
-        <button
-          class="button --white"
-          @click="
-            () => {
-              closeModal();
-              createNewProduct();
-            }
-          "
-        >
-          Yes
-        </button>
-      </RouterLink>
-      <button class="button --white" @click="closeModal">No</button>
+    <Modal :showButton="false" v-if="showModal">
+
+      <section class="modalSection">
+        <h1 class="subtitleText">Are you sure you want to add this book to Bookie?</h1>
+        <RouterLink to="/books">
+          <button
+            class="button --white"
+            @click="
+              () => {
+                closeModal();
+                createNewProduct();
+              }
+            "
+          >
+            Yes
+          </button>
+        </RouterLink>
+        <button class="button --white" @click="closeModal">No</button>
+      </section>
+
     </Modal>
   </section>
 </template>
@@ -306,15 +306,29 @@ export default {
 <style lang="scss" scoped>
 @import "src/assets/main.scss";
 
-.modal {
+.modalSection {
+  background: linear-gradient($gradientPink);
+  box-shadow: 2px 2px 5px $blackLight;
+  padding: 40px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .subtitleText {
+    display: block;
+    width: 300px;
+    line-height: 40px;
+    margin-bottom: 20px;
+  }
   .button {
-    margin: 5px;
+    margin-top: 15px;
   }
 }
 
 .formContainer {
   width: 100%;
-  height: 100%;
+  height: 100vh;
   padding: 100px 50px 50px 50px;
   display: flex;
   flex-direction: column;
@@ -335,10 +349,11 @@ export default {
   }
 
   .checkContainer {
-    width: 400px;
+    width: 450px;
     display: grid;
     grid-template-columns: auto auto auto;
-    justify-content: space-between;
+    justify-content: center;
+    column-gap: 40px;
 
     .checkbox {
       opacity: 0; // hide it
@@ -373,8 +388,6 @@ export default {
         top: 0;
         position: absolute;
         left: 4.5px;
-        width: 5px;
-        height: 10px;
         color: $background;
       }
     }
@@ -386,7 +399,7 @@ label {
   margin: 10px 10px 0px;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
 }
 
@@ -447,46 +460,18 @@ input {
     }
 
     .checkContainer {
+      display: flex;
       width: 280px;
-      display: grid;
-      grid-template-columns: auto auto auto;
+      flex-wrap: wrap;
+      column-gap: 10px;
+      row-gap: 5px;
+      justify-content: flex-start;
+      margin-left: 15px;
 
       .checkbox {
-        opacity: 0; // hide it
-        display: none;
-
         & + label {
-          position: relative;
-          cursor: pointer;
-          padding: 0;
-        }
-
-        // Box.
-        & + label:before {
-          content: "";
-          margin-top: 0px;
-          margin-right: 10px;
-          width: 15px;
-          height: 15px;
-          border-radius: 5px;
-          border: 2px solid $pink;
-        }
-
-        // Box checked
-        &:checked + label:before {
-          background: $pink;
-          border-radius: 5px;
-        }
-
-        // Checkmark. Could be replaced with an image
-        &:checked + label:after {
-          content: "X";
-          top: 0;
-          position: absolute;
-          left: 4.5px;
-          width: 5px;
-          height: 10px;
-          color: $background;
+          width: 120px;
+          margin: 0px;
         }
       }
     }

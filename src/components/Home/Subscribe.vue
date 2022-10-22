@@ -1,18 +1,18 @@
 <script>
-//js
 </script>
 
 
 <template>
   <section>
     <img src="src/assets/img/WebElements/pinkball.png" class="ball" />
-    <div>
-      <h1 class="titleText --pink">The community</h1>
+    <div class="container">
+      <h1 class="titleText --pink">Join our community!</h1>
+      <div class="line"></div>
       <a class="normalText --small --lightBlack"
-        >Where you can read book reviews from other book lovers and also share
-        your thoughts about the books you read or want to buy.</a
+        >The community is where yoy can find other people who are also book
+        lovers and share your likes and thoughts with them about the books you
+        read or want to buy...</a
       >
-      <button class="button --pink">Subscribe</button>
     </div>
   </section>
 </template>
@@ -23,18 +23,26 @@
 section {
   position: relative;
 
-  div {
+  .container {
     display: flex;
     flex-direction: column;
+    align-items: center;
     padding: 40px;
-    margin-left: 130px;
+    text-align: center;
+
+    .line {
+      background: linear-gradient(to right, $gradientPink);
+      width: 40vw;
+      height: 10px;
+      border-radius: 20px;
+    }
 
     * {
       margin-bottom: 15px;
     }
 
     .normalText {
-      width: 335px;
+      width: 450px;
     }
 
     .button {
@@ -52,11 +60,13 @@ section {
 
 @media screen and (max-width: 600px) {
   section {
+    .container {
+      .line {
+        height: 8px;
+      }
 
-    div {
-      margin-left: 20px;
       .normalText {
-        width: 250px;
+        width: 300px;
       }
     }
 
@@ -66,7 +76,6 @@ section {
       top: -100px;
       z-index: 50;
       width: 40%;
-
     }
   }
 }

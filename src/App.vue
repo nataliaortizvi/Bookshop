@@ -1,31 +1,43 @@
 <script>
 import { mapStores } from "pinia";
 import { useProductsStore } from "./stores/products";
-
 import { RouterLink, RouterView } from "vue-router";
+
+import Modal from "./components/Home/Modal.vue";
+import LogIn from "./components/Home/LogIn.vue";
 
 export default {
   components: {
     RouterLink,
     RouterView,
+    Modal,
+    LogIn,
   },
   computed: {
     ...mapStores(useProductsStore),
   },
 
   mounted() {
-    this.productsStore.loadProducts();
+    //this.productsStore.loadProducts();
   },
 
   data() {
     return {
       menuResponsive: false,
+      showModal: false,
     };
   },
 
   methods: {
     menuActive() {
       this.menuResponsive = !this.menuResponsive;
+    },
+    openModal() {
+      this.showModal = true;
+    },
+
+    closeModal() {
+      this.showModal = false;
     },
   },
 };
@@ -41,20 +53,34 @@ export default {
       </RouterLink>
 
       <nav>
-        <RouterLink to="/" class="links --darkBlack" class-active="active"
-          >Home</RouterLink
-        >
-        <RouterLink to="/books" class="links --darkBlack" class-active="active"
-          >Books</RouterLink
-        >
-        <!--RouterLink to="/community" class="links --darkBlack" class-active="active">Community</RouterLink-->
-        <!--RouterLink to="/login" class="links --darkBlack" class-active="active">Login</RouterLink-->
+        <RouterLink to="/" class="links --darkBlack" class-active="active">
+          Home
+        </RouterLink>
+
+        <RouterLink to="/books" class="links --darkBlack" class-active="active">
+          Books
+        </RouterLink>
+
+        <!--RouterLink class="links --darkBlack" class-active="active" to="/favorites">
+          Your Favorites
+        </RouterLink>
+
         <RouterLink
-          to="/addbook"
+        to="/addbook"
+        class="links --darkBlack"
+        class-active="active"
+        >
+        Add book
+      </RouterLink-->
+
+        <a
+          to="/login"
           class="links --darkBlack"
           class-active="active"
-          >Add book</RouterLink
+          @click="openModal"
         >
+          Log in
+        </a>
       </nav>
     </section>
 
@@ -70,21 +96,43 @@ export default {
       <!--input type="search" id="search" placeholder="Search..."/-->
     </section>
 
-    <div class="hamburger" @click="menuActive" :class="{ is_active: !menuResponsive }">
+    <div
+      class="hamburger"
+      @click="menuActive"
+      :class="{ is_active: !menuResponsive }"
+    >
       <div class="_layer -top"></div>
       <div class="_layer -mid"></div>
       <div class="_layer -bottom"></div>
     </div>
 
-    <nav class="menuppal" :class="{ is_active: !menuResponsive }" @click="menuActive">
+    <nav
+      class="menuppal"
+      :class="{ is_active: !menuResponsive }"
+      @click="menuActive"
+    >
       <ul>
-        <li><RouterLink class="links --pink" to="/">Home</RouterLink></li>
-        <li><RouterLink class="links --pink" to="/books">Books</RouterLink></li>
-        <li><RouterLink class="links --pink" to="/addbook">Add book</RouterLink></li>
+        <li><RouterLink class="links --blue" to="/">Home</RouterLink></li>
+        <li><RouterLink class="links --blue" to="/books">Books</RouterLink></li>
+
+        <!--li>
+          <RouterLink class="links --darkBlack" to="/addbook">Add book</RouterLink>
+        </li>
+        <li>
+          <RouterLink class="links --darkBlack" to="/favorites">
+            Your Favorites
+          </RouterLink>
+        </li-->
+        <li>
+          <RouterLink to="/login" class="links --blue"> Log in </RouterLink>
+        </li>
       </ul>
     </nav>
-
   </header>
+
+  <Modal :showButton="true" v-if="showModal" @close="closeModal">
+    <LogIn class="login"></LogIn>
+  </Modal>
 
   <!---------------------------------BODY------------------------------------>
   <RouterView />
@@ -94,16 +142,25 @@ export default {
     <img src="/images/WebElements/logoCircle.png" />
     <nav>
       <RouterLink to="/" class="links" class-active="active">Home</RouterLink>
-      <RouterLink to="/books" class="links" class-active="active"
-        >Books</RouterLink
-      >
-      <RouterLink to="/community" class="links" class-active="active"
-        >Community</RouterLink
-      >
-      <RouterLink to="/login" class="links" class-active="active"
-        >Login</RouterLink
+      <RouterLink class="links" to="/books">Books</RouterLink>
+
+      <!--RouterLink class="links" class-active="active" to="/favorites">
+          Your Favorites
+        </RouterLink>
+
+        <RouterLink
+        to="/addbook"
+        class="links"
+        class-active="active"
+        >
+        Add book
+      </RouterLink-->
+
+      <a to="/login" class="links" class-active="active" @click="openModal"
+        >Login</a
       >
     </nav>
+
     <a class="normalText"
       >© Bookie, 2022. Bookie Bookshop Limited. Registered in Colombia. Company
       number 00010095.

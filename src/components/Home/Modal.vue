@@ -3,8 +3,13 @@
 
 export default {
   props: {
-    title: String,
     showButton: Boolean,
+  },
+
+  methods: {
+    closeModal() {
+      this.$emit("close");
+    },
   },
 
 };
@@ -16,7 +21,7 @@ export default {
   <div class="backdrop" @click.self="cerrarModal">
 
     <aside class="modal-container">
-      <h1 class="subtitleText">{{ title }}</h1>
+      <button class="button --white closebtn" @click="closeModal" v-if="showButton">✕</button>
       <slot></slot>
     </aside>
 
@@ -38,7 +43,8 @@ export default {
   height: 100%;
   color: white;
   background-color: rgba(245, 243, 237, 0.6);
-  backdrop-filter: blur(2px);
+  backdrop-filter: blur(4px);
+  z-index: 99;
 }
 
 .modal-container {
@@ -47,16 +53,16 @@ export default {
   justify-content: center;
   align-items: center;
   text-align: center;
-  padding: 30px;
   border-radius: 20px;
-  background: linear-gradient($gradientPink);
-  box-shadow: 2px 2px 5px $blackLight;
+  position: relative;
 
-  .subtitleText {
-    display: block;
-    width: 300px;
-    line-height: 40px;
-    margin-bottom: 30px;
+  .closebtn {
+    width: 50px;
+    height: 50px;
+    right: -15px;
+    top: -10px;
+    border-radius: 50px;
+    position: absolute;
   }
 }
 </style>
