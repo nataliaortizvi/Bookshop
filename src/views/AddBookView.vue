@@ -3,10 +3,14 @@ import { mapStores } from "pinia";
 import { useProductsStore } from "../stores/products";
 import Modal from "../components/Home/Modal.vue";
 
+import { useDatabaseStore } from "../stores/database";
+
+
 export default {
   components: {
     Modal,
   },
+  
   data() {
     return {
       title: "",
@@ -26,6 +30,8 @@ export default {
 
   computed: {
     ...mapStores(useProductsStore),
+    ...mapStores(useDatabaseStore),
+
     allProducts() {
       return this.productsStore.getProducts;
     },
@@ -76,6 +82,21 @@ export default {
 
     closeModal() {
       this.showModal = false;
+    },
+
+    addProduct() {
+      const newProduct = {
+        title: this.title,
+        author: this.author,
+        about: this.about,
+        category: this.category,
+        price: this.price,
+        year: this.year,
+        place: this.place,
+        notLike: true,
+        stars: "⭐️",
+      };
+      this.databaseStore.addData(newProduct);
     },
   },
 };
@@ -281,19 +302,20 @@ export default {
 
       <section class="modalSection">
         <h1 class="subtitleText">Are you sure you want to add this book to Bookie?</h1>
-        <RouterLink to="/books">
+        <!--RouterLink to="/books"-->
           <button
             class="button --white"
             @click="
               () => {
                 closeModal();
-                createNewProduct();
+                addProduct();
+                //createNewProduct();
               }
             "
           >
             Yes
           </button>
-        </RouterLink>
+        <!--/RouterLink-->
         <button class="button --white" @click="closeModal">No</button>
       </section>
 

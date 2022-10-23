@@ -1,12 +1,14 @@
 <script>
 import { mapStores } from "pinia";
 import { useAuthenticationStore } from "../../stores/authentication";
+import { auth } from "../../firebase/config";
 
 export default {
   data() {
     return {
       email: "",
       password: "",
+      confirmPassword: "",
       name: "",
       newLog: false,
     };
@@ -14,6 +16,15 @@ export default {
 
   computed: {
     ...mapStores(useAuthenticationStore),
+
+    userIsLogged(){
+      return auth.currentUser !== null;
+    }
+    
+  },
+
+  mounted(){
+    console.log(auth.currentUser)
   },
 
   methods: {
@@ -21,8 +32,19 @@ export default {
       e.preventDefault();
       this.authenticationStore.signIn(this.email, this.password);
     },
+    signUp(e) {
+      e.preventDefault();
+      if (this.password === this.confirmPassword) {
+        this.authenticationStore.signUp(this.email, this.password);
+      } else {
+        alert("Passwords do not match");
+      }
+    },
     switchNewLogShow() {
       this.newLog = !this.newLog;
+    },
+     closeModal() {
+      this.$emit("close");
     },
   },
 };
@@ -49,7 +71,7 @@ export default {
         <label
           class="normalText --small --white switchNewLog"
           :class="{ showTitleNew: this.newLog == true }"
-          for="email"
+          for="name"
           >Name</label
         >
         <input
@@ -60,6 +82,7 @@ export default {
           id="name"
           v-model="name"
         />
+
         <label class="normalText --small --white" for="email">Email</label>
         <input
           class="normalText --small --darkBlack elinput"
@@ -68,6 +91,7 @@ export default {
           id="email"
           v-model="email"
         />
+
         <label class="normalText --small --white" for="password"
           >Password</label
         >
@@ -78,6 +102,21 @@ export default {
           id="password"
           v-model="password"
         />
+
+        <label
+          class="normalText --small --white switchNewLog"
+          :class="{ showTitleNew: this.newLog == true }"
+          for="confirmPassword"
+          >Confirm password</label
+        >
+        <input
+          class="normalText --small --darkBlack switchNewLog"
+          :class="{ elinputNew: this.newLog == true }"
+          type="password"
+          name="confirmPassword"
+          id="confirmPassword"
+          v-model="confirmPassword"
+        />
       </div>
 
       <button
@@ -87,16 +126,20 @@ export default {
       >
         Log In
       </button>
+      
       <button
         class="button --white switchNewLog"
-        @click="signIn"
+        @click="signUp"
         :class="{ showBtnNew: this.newLog == true }"
       >
         Sign Up
       </button>
 
-      <a class="normalText --small --white switchlink" @click="switchNewLogShow"
+      <a class="normalText --small --white switchlink switchNewLog" :class="{ showTitleNew: this.newLog == false }" @click="switchNewLogShow"
         >Don't you have an account yet? Sign up Now!</a
+      >
+      <a class="normalText --small --white switchlink switchNewLog" :class="{ showTitleNew: this.newLog == true }" @click="switchNewLogShow"
+        >Already have an account? Log in Now!</a
       >
     </form>
   </section>
@@ -109,14 +152,14 @@ export default {
 <style lang="scss" scoped>
 @import "src/assets/main.scss";
 .loginFormContainer {
-  padding: 50px;
+  padding: 40px;
   background: linear-gradient($gradientPink);
   box-shadow: 2px 2px 5px $blackLight;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 30px;
+  gap: 0px;
   border-radius: 20px;
 
   .switchNewLog {
@@ -149,6 +192,7 @@ export default {
     width: 400px;
     align-items: center;
     position: relative;
+    margin-top: 30px;
 
     .inputs {
       width: 100%;
@@ -162,7 +206,7 @@ export default {
         border-radius: 20px;
         height: 40px;
         width: 100%;
-        margin-bottom: 20px;
+        margin-bottom: 10px;
       }
       .elinputNew {
         display: block;
@@ -172,7 +216,7 @@ export default {
         border-radius: 20px;
         height: 40px;
         width: 100%;
-        margin-bottom: 20px;
+        margin-bottom: 10px;
       }
     }
 

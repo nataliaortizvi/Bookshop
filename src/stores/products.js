@@ -27,7 +27,7 @@ export const useProductsStore = defineStore("products", {
                 image: '/images/books/garberBook.png',
                 stars: '⭐️⭐️⭐️⭐️',
             },
-            {
+            /*{
                 title: 'Kingdom of the Feared',
                 author: 'Kerri Maniscalco',
                 notLike: true,
@@ -98,7 +98,7 @@ export const useProductsStore = defineStore("products", {
                 place: 'europe',
                 image: '/images/books/anneBook.jpg',
                 stars: '⭐️⭐️⭐️⭐️⭐️',
-            },
+            },*/
         ],
         localStorageProducts: [],
     }),

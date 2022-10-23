@@ -1,6 +1,7 @@
 <script>
 import { mapStores } from "pinia";
 import { useProductsStore } from "../stores/products";
+import { useDatabaseStore } from "../stores/database";
 
 import BookDetail from "../components/Books/BookDetail.vue";
 
@@ -15,12 +16,15 @@ export default {
   },
   computed: {
     ...mapStores(useProductsStore),
-    allProducts() {
-      return this.productsStore.getProducts;
-    },
+    ...mapStores(useDatabaseStore),
+
   },
   mounted() {
-    this.currentProduct = this.productsStore.getProductById(
+    /*this.currentProduct = this.productsStore.getProductById(
+      this.$route.params.productId
+    );*/
+
+    this.currentProduct = this.databaseStore.getBookById(
       this.$route.params.productId
     );
 

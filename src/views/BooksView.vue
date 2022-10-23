@@ -3,6 +3,8 @@ import BookCard from "../components/Books/BookCard.vue";
 import { mapStores } from "pinia";
 import { useProductsStore } from "../stores/products";
 
+import { useDatabaseStore } from "../stores/database";
+
 export default {
   components: {
     BookCard,
@@ -23,9 +25,11 @@ export default {
 
   computed: {
     ...mapStores(useProductsStore),
-    allProducts() {
-      return this.productsStore.getProducts;
-    },
+    ...mapStores(useDatabaseStore),
+
+    allBooks(){
+      return this.normalProducts = this.databaseStore.getBooks;
+    }
   },
 
   methods: {
@@ -102,10 +106,13 @@ export default {
           break;
       }
     },
+
+    getDatas() {
+      console.log(this.normalProducts);
+    },
   },
 
   mounted() {
-    this.normalProducts = this.productsStore.getProducts;
     this.currentProducts = JSON.parse(JSON.stringify(this.normalProducts));
     this.arrayToShow = this.currentProducts;
   },
@@ -117,7 +124,7 @@ export default {
     <button class="btn button --white">Filters</button>
 
     <div class="filtersSide">
-      <h1 class="titleText --pink">Books</h1>
+      <h1 class="titleText --pink" @click="getDatas">Books</h1>
 
       <label class="normalText --pink --big">Category</label>
       <div
@@ -279,18 +286,18 @@ export default {
 
     <div class="booksSide">
       <BookCard
-        v-for="product in arrayToShow"
+        v-for="product in allBooks"
         :key="product.title"
         class="bookCard"
         :title="product.title"
         :author="product.author"
         :price="product.price"
         :notLike="product.notLike"
-        :image="product.image"
+        image="product.image"
         :stars="product.stars"
         :year="product.year"
+        :id="product.id"
       ></BookCard>
-
       <br />
       <br />
     </div>

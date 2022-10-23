@@ -2,6 +2,10 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getAuth } from "firebase/auth";
+import { onAuthStateChanged } from "firebase/auth";
+import { useAuthenticationStore } from "../stores/authentication";
+
+import { getFirestore } from "firebase/firestore";
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -25,4 +29,27 @@ const analytics = getAnalytics(app);
 // Initialize Firebase Authentication and get a reference to the service
 const auth = getAuth(app);
 
-export {auth}
+onAuthStateChanged(auth, (user) => {
+  const authStore = useAuthenticationStore();
+  if (user) {
+    // User is signed in, see docs for a list of available properties
+    // https://firebase.google.com/docs/reference/js/firebase.User
+    const uid = user.uid;
+
+    authStore.user = user;
+    //console.log(authStore.user)
+
+  } else {
+    // User is signed out
+    authStore.user = null;
+    //console.log(authStore.user)
+  }
+});
+
+
+
+// Initialize Cloud Firestore and get a reference to the service
+const db = getFirestore(app);
+
+export { auth }
+export { db }

@@ -10,16 +10,11 @@ export default {
     image: String,
     stars: String,
     year: Number,
+    id: String,
   },
 
   components: {
     LoveButton,
-  },
-
-  data() {
-    return {
-      titleRoute: this.title.replace(/ /g, ""),
-    };
   },
 };
 </script>
@@ -30,12 +25,12 @@ export default {
     <LoveButton class="lovebtn" :notLike="true"></LoveButton>
 
     <!--------------------card info-------------------->
-    <RouterLink :to="`/details/${this.titleRoute}`">
-      <img :src="this.image" />
+    <RouterLink :to="`/details/${this.id}`">
+      <!--img :src="this.image" /-->
     </RouterLink>
 
     <div class="cardContainer_info">
-      <RouterLink :key="this.titleRoute" :to="`/details/${this.titleRoute}`">
+      <RouterLink :key="this.id" :to="`/details/${this.id}`">
         <h1 class="normalText --darkBlack --small">{{ this.title }}</h1>
       </RouterLink>
 
@@ -53,7 +48,6 @@ export default {
 
 <style lang="scss" scoped>
 @import "src/assets/main.scss";
-
 
 .cardContainer {
   height: 430px;
@@ -121,7 +115,6 @@ export default {
     height: 380px;
     width: 160px;
     justify-content: flex-start;
-    
 
     .lovebtn {
       position: absolute;

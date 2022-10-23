@@ -15,13 +15,17 @@ export default {
   components: {
     LoveButton,
   },
+
+  mounted() {
+    console.log("wtf ",this.title);
+  },
 };
 </script>
 
      
 <template>
   <div class="detailContainer">
-    <img :src="this.image" />
+    <!--img :src="this.image" /-->
     <div class="detailInfo">
       <h1 class="titleText --blue">{{ this.title }}</h1>
 

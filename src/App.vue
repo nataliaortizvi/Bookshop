@@ -1,6 +1,9 @@
 <script>
 import { mapStores } from "pinia";
 import { useProductsStore } from "./stores/products";
+import { useAuthenticationStore } from "./stores/authentication";
+import { useDatabaseStore } from "./stores/database";
+
 import { RouterLink, RouterView } from "vue-router";
 
 import Modal from "./components/Home/Modal.vue";
@@ -13,12 +16,20 @@ export default {
     Modal,
     LogIn,
   },
+
   computed: {
     ...mapStores(useProductsStore),
+    ...mapStores(useAuthenticationStore),
+    ...mapStores(useDatabaseStore),
+
+    userIsLogged() {
+      return this.authenticationStore.user !== null;
+    },
   },
 
   mounted() {
     //this.productsStore.loadProducts();
+    this.databaseStore.updateBookStore();
   },
 
   data() {
@@ -38,6 +49,12 @@ export default {
 
     closeModal() {
       this.showModal = false;
+    },
+    logOut() {
+      this.authenticationStore.logOut();
+    },
+    prueba() {
+      console.log(this.userIsLogged);
     },
   },
 };
@@ -61,11 +78,11 @@ export default {
           Books
         </RouterLink>
 
-        <!--RouterLink class="links --darkBlack" class-active="active" to="/favorites">
+        <RouterLink v-if="this.userIsLogged" class="links --darkBlack" class-active="active" to="/favorites">
           Your Favorites
         </RouterLink>
 
-        <RouterLink
+        <!--RouterLink
         to="/addbook"
         class="links --darkBlack"
         class-active="active"
@@ -74,12 +91,23 @@ export default {
       </RouterLink-->
 
         <a
+          v-if="!this.userIsLogged"
           to="/login"
-          class="links --darkBlack"
+          class="links --darkBlack logs"
           class-active="active"
           @click="openModal"
         >
           Log in
+        </a>
+
+        <a
+          v-else
+          to="/login"
+          class="links --darkBlack logs"
+          class-active="active"
+          @click="logOut"
+        >
+          Log Out 👋🏻
         </a>
       </nav>
     </section>
@@ -139,7 +167,7 @@ export default {
 
   <!-----------------------------GLOBAL FOOTER------------------------------->
   <footer>
-    <img src="/images/WebElements/logoCircle.png" />
+    <img src="/images/WebElements/logoCircle.png" @click="prueba" />
     <nav>
       <RouterLink to="/" class="links" class-active="active">Home</RouterLink>
       <RouterLink class="links" to="/books">Books</RouterLink>
