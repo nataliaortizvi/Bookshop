@@ -24,7 +24,7 @@ export default {
 
      
 <template>
-  <div class="detailContainer">
+  <div class="detailContainer" v-if="this.title">
     <!--img :src="this.image" /-->
     <div class="detailInfo">
       <h1 class="titleText --blue">{{ this.title }}</h1>

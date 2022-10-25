@@ -1,6 +1,8 @@
 <script>
 import { mapStores } from "pinia";
 import { useAuthenticationStore } from "../../stores/authentication";
+import { useDatabaseStore } from "../../stores/database";
+
 import { auth } from "../../firebase/config";
 
 export default {
@@ -11,39 +13,48 @@ export default {
       confirmPassword: "",
       name: "",
       newLog: false,
+
+      theUser: {},
     };
   },
 
   computed: {
     ...mapStores(useAuthenticationStore),
+    ...mapStores(useDatabaseStore),
 
-    userIsLogged(){
+    userIsLogged() {
       return auth.currentUser !== null;
-    }
-    
-  },
-
-  mounted(){
-    console.log(auth.currentUser)
+    },
   },
 
   methods: {
+    addUser() {
+      theUser = {
+        name: this.name,
+        email: this.email,
+        favorites: [],
+      };
+      this.databaseStore.user = user;
+    },
+
     signIn(e) {
       e.preventDefault();
       this.authenticationStore.signIn(this.email, this.password);
     },
+
     signUp(e) {
       e.preventDefault();
       if (this.password === this.confirmPassword) {
-        this.authenticationStore.signUp(this.email, this.password);
+        this.authenticationStore.signUp(this.email, this.password, this.name);
       } else {
         alert("Passwords do not match");
       }
     },
+
     switchNewLogShow() {
       this.newLog = !this.newLog;
     },
-     closeModal() {
+    closeModal() {
       this.$emit("close");
     },
   },
@@ -66,7 +77,7 @@ export default {
       Welcome back!
     </h1>
 
-    <form class="form">
+    <section class="form">
       <div class="inputs">
         <label
           class="normalText --small --white switchNewLog"
@@ -126,22 +137,28 @@ export default {
       >
         Log In
       </button>
-      
+
       <button
         class="button --white switchNewLog"
         @click="signUp"
-        :class="{ showBtnNew: this.newLog == true }"
+        :class="{ showBtnOld: this.newLog == true }"
       >
         Sign Up
       </button>
 
-      <a class="normalText --small --white switchlink switchNewLog" :class="{ showTitleNew: this.newLog == false }" @click="switchNewLogShow"
+      <a
+        class="normalText --small --white switchlink switchNewLog"
+        :class="{ showTitleNew: this.newLog == false }"
+        @click="switchNewLogShow"
         >Don't you have an account yet? Sign up Now!</a
       >
-      <a class="normalText --small --white switchlink switchNewLog" :class="{ showTitleNew: this.newLog == true }" @click="switchNewLogShow"
+      <a
+        class="normalText --small --white switchlink switchNewLog"
+        :class="{ showTitleNew: this.newLog == true }"
+        @click="switchNewLogShow"
         >Already have an account? Log in Now!</a
       >
-    </form>
+    </section>
   </section>
 
   <section></section>

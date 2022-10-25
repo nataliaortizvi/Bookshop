@@ -1,6 +1,5 @@
 <script>
 import { mapStores } from "pinia";
-import { useProductsStore } from "../stores/products";
 import { useDatabaseStore } from "../stores/database";
 
 import BookDetail from "../components/Books/BookDetail.vue";
@@ -9,35 +8,40 @@ export default {
   components: {
     BookDetail,
   },
+
   data() {
     return {
       currentProduct: {},
     };
   },
+
   computed: {
-    ...mapStores(useProductsStore),
     ...mapStores(useDatabaseStore),
 
+    bookInfo() {
+      return this.currentProduct = this.databaseStore.getBookById(
+        this.$route.params.productId);
+    },
   },
   mounted() {
-    /*this.currentProduct = this.productsStore.getProductById(
-      this.$route.params.productId
-    );*/
-
     this.currentProduct = this.databaseStore.getBookById(
       this.$route.params.productId
     );
+  },
 
+  methods: {
+    prueba() {
+      console.log("yohoooo ", this.currentProduct);
+    },
   },
 };
 </script>
 
 <template>
-
   <div class="container">
-    <img src="/images/WebElements/detailVector.png">
+    <img src="/images/WebElements/detailVector.png" />
 
-    <BookDetail
+    <BookDetail v-if="this.bookInfo"
       :title="currentProduct.title"
       :author="currentProduct.author"
       :price="currentProduct.price"
@@ -45,11 +49,9 @@ export default {
       :image="currentProduct.image"
       :stars="currentProduct.stars"
       :about="currentProduct.about"
+      @click="prueba"
     ></BookDetail>
-  
-
   </div>
-
 </template>
 
 <style lang="scss" scoped>
@@ -58,12 +60,12 @@ export default {
 .container {
   position: relative;
   width: 100%;
-  height: 100%;
+  height: 90vh;
 
   img {
     position: absolute;
     bottom: 0;
-    right:0;
+    right: 0;
     z-index: -5;
     width: 500px;
     height: 300px;

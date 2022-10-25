@@ -16,6 +16,12 @@ export default {
   components: {
     LoveButton,
   },
+
+  data() {
+     return {
+       titleRoute: this.title.replace(/ /g, ""),
+     };
+   },
 };
 </script>
 
@@ -25,12 +31,12 @@ export default {
     <LoveButton class="lovebtn" :notLike="true"></LoveButton>
 
     <!--------------------card info-------------------->
-    <RouterLink :to="`/details/${this.id}`">
+    <RouterLink :to="`/details/${this.titleRoute}`">
       <!--img :src="this.image" /-->
     </RouterLink>
 
     <div class="cardContainer_info">
-      <RouterLink :key="this.id" :to="`/details/${this.id}`">
+      <RouterLink :key="this.titleRoute" :to="`/details/${this.titleRoute}`">
         <h1 class="normalText --darkBlack --small">{{ this.title }}</h1>
       </RouterLink>
 

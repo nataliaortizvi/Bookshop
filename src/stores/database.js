@@ -1,6 +1,9 @@
 import { defineStore } from "pinia";
 import { collection, addDoc, onSnapshot } from "firebase/firestore";
 import { getDocs } from "firebase/firestore";
+import { getDoc } from "firebase/firestore";
+import { doc } from "firebase/firestore";
+import { setDoc } from "firebase/firestore";
 import { query, where } from "firebase/firestore";
 import { db } from "../firebase/config";
 
@@ -15,6 +18,7 @@ export const useDatabaseStore = defineStore("database", {
     },
 
     actions: {
+        //----------------------------BOOKS DATABASE--------------------------
         async addData(product) {
             try {
                 const docRef = await addDoc(collection(db, "products"), {
@@ -24,15 +28,6 @@ export const useDatabaseStore = defineStore("database", {
             } catch (e) {
                 console.error("Error adding document: ", e);
             }
-        },
-
-        async getData() {
-            const snapshot = await getDocs(collection(db, "products"));
-
-            snapshot.forEach((doc) => {
-                this.books.push(doc.data().product);
-                console.log('holis ', doc.data().product)
-            });
         },
 
         updateBookStore() {
@@ -63,9 +58,11 @@ export const useDatabaseStore = defineStore("database", {
         },
 
         getBookById(id) {
-            const filteredBooks = this.books.filter((book) => id === book.id);
-            return filteredBooks ? {...filteredBooks[0] } : null
+            const filteredBooks = this.books.filter((book) => id.toLowerCase().replace(/ /g, "") === book.title.toLowerCase().replace(/ /g, ""));
+            return filteredBooks ? { ...filteredBooks[0] } : null
         },
+
+       
     },
 });
 

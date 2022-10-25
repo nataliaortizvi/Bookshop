@@ -4,6 +4,7 @@ import { getAnalytics } from "firebase/analytics";
 import { getAuth } from "firebase/auth";
 import { onAuthStateChanged } from "firebase/auth";
 import { useAuthenticationStore } from "../stores/authentication";
+import { useDatabaseStore } from "../stores/database";
 
 import { getFirestore } from "firebase/firestore";
 
@@ -31,17 +32,21 @@ const auth = getAuth(app);
 
 onAuthStateChanged(auth, (user) => {
   const authStore = useAuthenticationStore();
+  const dataStore = useDatabaseStore();
+
   if (user) {
     // User is signed in, see docs for a list of available properties
     // https://firebase.google.com/docs/reference/js/firebase.User
-    const uid = user.uid;
 
-    authStore.user = user;
-    //console.log(authStore.user)
+    authStore.isUser = user;
+    authStore.getCurrentUser(user.uid);
+
 
   } else {
     // User is signed out
-    authStore.user = null;
+    authStore.isUser = null;
+    authStore.currentUser = null;
+    authStore.getCurrentUser(null);
     //console.log(authStore.user)
   }
 });

@@ -31,10 +31,6 @@ export default {
   computed: {
     ...mapStores(useProductsStore),
     ...mapStores(useDatabaseStore),
-
-    allProducts() {
-      return this.productsStore.getProducts;
-    },
   },
 
   methods: {
@@ -302,7 +298,7 @@ export default {
 
       <section class="modalSection">
         <h1 class="subtitleText">Are you sure you want to add this book to Bookie?</h1>
-        <!--RouterLink to="/books"-->
+        <RouterLink to="/books">
           <button
             class="button --white"
             @click="
@@ -315,7 +311,7 @@ export default {
           >
             Yes
           </button>
-        <!--/RouterLink-->
+        </RouterLink>
         <button class="button --white" @click="closeModal">No</button>
       </section>
 

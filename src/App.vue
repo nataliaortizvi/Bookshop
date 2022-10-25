@@ -1,6 +1,5 @@
 <script>
 import { mapStores } from "pinia";
-import { useProductsStore } from "./stores/products";
 import { useAuthenticationStore } from "./stores/authentication";
 import { useDatabaseStore } from "./stores/database";
 
@@ -18,17 +17,21 @@ export default {
   },
 
   computed: {
-    ...mapStores(useProductsStore),
     ...mapStores(useAuthenticationStore),
     ...mapStores(useDatabaseStore),
 
     userIsLogged() {
-      return this.authenticationStore.user !== null;
+      return this.authenticationStore.isUser !== null;
+    },
+
+    getUser() {
+      if(this.authenticationStore.loadCurrentUser() != null){
+        return this.currentUser = this.authenticationStore.loadCurrentUser().admin;
+      }
     },
   },
 
   mounted() {
-    //this.productsStore.loadProducts();
     this.databaseStore.updateBookStore();
   },
 
@@ -36,6 +39,7 @@ export default {
     return {
       menuResponsive: false,
       showModal: false,
+      currentUser: {},
     };
   },
 
@@ -46,7 +50,6 @@ export default {
     openModal() {
       this.showModal = true;
     },
-
     closeModal() {
       this.showModal = false;
     },
@@ -54,7 +57,7 @@ export default {
       this.authenticationStore.logOut();
     },
     prueba() {
-      console.log(this.userIsLogged);
+      console.log(this.getUser);
     },
   },
 };
@@ -78,17 +81,23 @@ export default {
           Books
         </RouterLink>
 
-        <RouterLink v-if="this.userIsLogged" class="links --darkBlack" class-active="active" to="/favorites">
+        <RouterLink
+          v-if="!this.getUser && this.userIsLogged"
+          class="links --darkBlack"
+          class-active="active"
+          to="/favorites"
+        >
           Your Favorites
         </RouterLink>
 
-        <!--RouterLink
-        to="/addbook"
-        class="links --darkBlack"
-        class-active="active"
+        <RouterLink
+        v-if="this.getUser"
+          to="/addbook"
+          class="links --darkBlack"
+          class-active="active"
         >
-        Add book
-      </RouterLink-->
+          Add book
+        </RouterLink>
 
         <a
           v-if="!this.userIsLogged"
