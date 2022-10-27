@@ -1,44 +1,101 @@
 <script>
 import LoveButton from "./LoveButton.vue";
+import Stars from "./Starts.vue";
+import { mapStores } from "pinia";
+import { useAuthenticationStore } from "../../stores/authentication";
 
 export default {
   props: {
-    title: String,
-    author: String,
-    price: Number,
-    about: String,
-    notLike: Boolean,
-    image: String,
-    stars: String,
+    currentBook: {},
+    currentUser: {},
   },
 
   components: {
     LoveButton,
+    Stars,
   },
 
-  mounted() {
-    console.log("wtf ",this.title);
+  computed: {
+    ...mapStores(useAuthenticationStore),
+
+    userLog() {
+      return this.currentUser;
+    },
+  },
+
+  data() {
+    return {
+      votePosition: Number,
+      rate: String,
+      userIn: false,
+    };
+  },
+
+  watch: {
+    userLog(newChanges, oldChanges) {
+      if (newChanges != null) {
+        this.userIn = true;
+
+        this.getPositionUpdate();
+
+        //console.log("ALGUIEN", newChanges);
+      } else {
+        this.rate = "0";
+        this.userIn = false;
+        //console.log("NADIE", newChanges);
+      }
+    },
+  },
+
+  methods: {
+    addRating(r) {
+      //console.log(r);
+      this.authenticationStore.addRating(r, this.currentBook);
+      this.getPositionUpdate();
+    },
+
+    getPositionUpdate() {
+      this.votePosition = this.currentBook.votes.findIndex(
+        (v) => v.by == this.currentUser.id
+      );
+      if (this.votePosition != -1) {
+        this.rate = this.currentBook.votes[this.votePosition].rate;
+      } else {
+        this.rate = "0";
+      }
+    },
+
+    prueba() {
+      console.log("pruebaaaa", this.votePosition);
+    },
   },
 };
 </script>
 
      
 <template>
-  <div class="detailContainer" v-if="this.title">
+  <div class="detailContainer" v-if="this.currentBook.title">
     <!--img :src="this.image" /-->
     <div class="detailInfo">
-      <h1 class="titleText --blue">{{ this.title }}</h1>
+      <h1 class="titleText --blue" @click="prueba">
+        {{ this.currentBook.title }}
+      </h1>
 
       <div class="starsAuthor">
-        <a class="normalText --blue --small">{{ this.author }}</a>
+        <a class="normalText --blue --small">{{ this.currentBook.author }}</a>
         <p class="normalText --blue --small">|</p>
-        <a class="normalText --lightBlack --small">{{ this.stars }}</a>
+        <Stars :rate="this.rate" :userIn="this.userIn" @rating="addRating">
+        </Stars>
+        <p class="normalText --blue --small">|</p>
+        <a class="normalText --lightBlack --small"
+          ><span class="littleStar">★</span> {{ this.currentBook.stars }}</a
+        >
       </div>
 
       <p class="normalText --lightBlack --small">
-        {{ this.about }}
+        {{ this.currentBook.about }}
       </p>
-      <p class="titleText --blue price">$ {{ this.price }}</p>
+      <p class="titleText --blue price">$ {{ this.currentBook.price }}</p>
       <div class="btnlove">
         <button class="button --blue">Add to cart</button>
         <!------arreglar boton like------>
@@ -100,6 +157,10 @@ export default {
       p {
         font-size: 25px;
       }
+
+      .littleStar {
+        color: #eecc5c;
+      }
     }
 
     .price {
@@ -134,12 +195,10 @@ export default {
       width: 90%;
 
       .btnlove {
-
-      .lovebtn {
-        display: none;
+        .lovebtn {
+          display: none;
+        }
       }
-    }
-
     }
   }
 }

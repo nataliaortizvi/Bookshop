@@ -1,5 +1,6 @@
 <script>
 import { mapStores } from "pinia";
+import { useAuthenticationStore } from "../stores/authentication";
 import { useDatabaseStore } from "../stores/database";
 
 import BookDetail from "../components/Books/BookDetail.vue";
@@ -12,27 +13,43 @@ export default {
   data() {
     return {
       currentProduct: {},
+      currentUser: null,
     };
   },
 
   computed: {
+    ...mapStores(useAuthenticationStore),
     ...mapStores(useDatabaseStore),
 
     bookInfo() {
-      return this.currentProduct = this.databaseStore.getBookById(
-        this.$route.params.productId);
+      return (this.currentProduct = this.databaseStore.getBookById(
+        this.$route.params.productId
+      ));
+    },
+
+    getUser() {
+      return this.authenticationStore.loadCurrentUser();
     },
   },
+
+  watch: {
+    getUser(newChanges, oldChanges) {
+      if (newChanges != null) {
+        //console.log(newChanges, "cambio");
+        this.currentUser = newChanges;
+      } else {
+        this.currentUser = null;
+        //console.log(newChanges, "NO cambio");
+      }
+    },
+  },
+
   mounted() {
+    this.currentUser = this.authenticationStore.loadCurrentUser();
+
     this.currentProduct = this.databaseStore.getBookById(
       this.$route.params.productId
     );
-  },
-
-  methods: {
-    prueba() {
-      console.log("yohoooo ", this.currentProduct);
-    },
   },
 };
 </script>
@@ -41,15 +58,10 @@ export default {
   <div class="container">
     <img src="/images/WebElements/detailVector.png" />
 
-    <BookDetail v-if="this.bookInfo"
-      :title="currentProduct.title"
-      :author="currentProduct.author"
-      :price="currentProduct.price"
-      :notLike="currentProduct.notLike"
-      :image="currentProduct.image"
-      :stars="currentProduct.stars"
-      :about="currentProduct.about"
-      @click="prueba"
+    <BookDetail
+      v-if="this.bookInfo"
+      :currentBook="currentProduct"
+      :currentUser="currentUser"
     ></BookDetail>
   </div>
 </template>

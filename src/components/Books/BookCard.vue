@@ -8,7 +8,7 @@ export default {
     price: Number,
     notLike: Boolean,
     image: String,
-    stars: String,
+    stars: Number,
     year: Number,
     id: String,
   },
@@ -45,7 +45,7 @@ export default {
       </h2>
 
       <div class="cardContainer_elem">
-        <a>{{ this.stars }}</a>
+        <!--a class="normalText --lightBlack --small">{{ this.stars }}</a-->
         <h1 class="normalText --darkBlack --big">$ {{ this.price }}</h1>
       </div>
     </div>

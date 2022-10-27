@@ -1,6 +1,5 @@
 <script>
 import { mapStores } from "pinia";
-import { useProductsStore } from "../stores/products";
 import Modal from "../components/Home/Modal.vue";
 
 import { useDatabaseStore } from "../stores/database";
@@ -16,20 +15,16 @@ export default {
       title: "",
       author: "",
       about: "",
-      category: [],
       price: "",
       year: "",
       place: "",
-      image: "",
-      notLike: true,
-      stars: "⭐️⭐️⭐️",
+      category: [],
 
       showModal: false,
     };
   },
 
   computed: {
-    ...mapStores(useProductsStore),
     ...mapStores(useDatabaseStore),
   },
 
@@ -44,32 +39,6 @@ export default {
       });
 
       reader.readAsDataURL(files[0]);
-    },
-
-    createNewProduct() {
-      const newProduct = {
-        title: this.title,
-        author: this.author,
-        about: this.about,
-        category: this.category,
-        price: this.price,
-        year: this.year,
-        place: this.place,
-        image: this.image,
-        notLike: true,
-        stars: "⭐️⭐️⭐️",
-      };
-
-      console.log(newProduct);
-      this.productsStore.newProduct(newProduct);
-      this.title = "";
-      this.author = "";
-      this.about = "";
-      this.category = [];
-      this.price = "";
-      this.year = "";
-      this.place = "";
-      this.image = "";
     },
 
     openModal() {
@@ -90,7 +59,8 @@ export default {
         year: this.year,
         place: this.place,
         notLike: true,
-        stars: "⭐️",
+        stars: 0,
+        votes: [],
       };
       this.databaseStore.addData(newProduct);
     },

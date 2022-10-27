@@ -43,15 +43,6 @@ export default {
       class="mySwiper"
     >
       <swiper-slide v-for="slide in slides" :key="slide">
-        <!--BookDetail
-        :title="slide.title"
-          :author="slide.author"
-          :price="slide.price"
-          :notLike="slide.notLike"
-          :image="slide.image
-          :stars="slide.stars"
-          :about="slide.about"
-        ></BookDetail-->
 
         <div class="page">
           <img :src="slide.image" />

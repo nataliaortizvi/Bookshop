@@ -1,7 +1,6 @@
 <script>
 import BookCard from "../components/Books/BookCard.vue";
 import { mapStores } from "pinia";
-import { useProductsStore } from "../stores/products";
 
 import { useDatabaseStore } from "../stores/database";
 
@@ -24,12 +23,28 @@ export default {
   },
 
   computed: {
-    ...mapStores(useProductsStore),
     ...mapStores(useDatabaseStore),
 
-    allBooks(){
-      return this.normalProducts = this.databaseStore.getBooks;
-    }
+    allBooks() {
+      return this.databaseStore.getBooks;
+    },
+  },
+
+  mounted() {
+    this.normalProducts = this.databaseStore.getBooks;
+    this.currentProducts = JSON.parse(JSON.stringify(this.normalProducts));
+    this.arrayToShow = this.currentProducts;
+  },
+
+  watch: {
+    allBooks(newChanges, oldChanges) {
+      if (newChanges.length !== 0) {
+        this.getDatas();
+        //console.log(newChanges, "cambio");
+      } else {
+        //console.log(newChanges, "NO cambio");
+      }
+    },
   },
 
   methods: {
@@ -42,16 +57,18 @@ export default {
     },
 
     categoryFilter(c) {
-      console.log(c.toString());
-
       if (c != "") {
-        this.arrayToShow = this.currentProducts.filter((product) =>
-          product.category
-            .toString()
-            .toLowerCase()
-            .replace(/ /g, "")
-            .includes(c.toString().toLowerCase().replace(/ /g, ""))
-        );
+        this.arrayToShow = this.currentProducts.filter((product) => {
+          let founded = 0;
+
+          for (let i = 0; i < c.length; i++) {
+            if (product.category.includes(c[i])) {
+              founded++;
+            }
+          }
+
+          return founded == c.length;
+        });
       } else {
         this.arrayToShow = this.normalProducts;
       }
@@ -72,7 +89,6 @@ export default {
     },
 
     orderPriceFilter(p) {
-      console.log(p);
       switch (p) {
         case "":
           console.log("hola PRICEE");
@@ -108,13 +124,11 @@ export default {
     },
 
     getDatas() {
-      console.log(this.normalProducts);
+      //console.log("metodoooo", this.allBooks);
+      this.normalProducts = this.databaseStore.getBooks;
+      this.currentProducts = JSON.parse(JSON.stringify(this.normalProducts));
+      this.arrayToShow = this.currentProducts;
     },
-  },
-
-  mounted() {
-    this.currentProducts = JSON.parse(JSON.stringify(this.normalProducts));
-    this.arrayToShow = this.currentProducts;
   },
 };
 </script>
@@ -286,8 +300,8 @@ export default {
 
     <div class="booksSide">
       <BookCard
-        v-for="product in allBooks"
-        :key="product.title"
+        v-for="product in arrayToShow"
+        :key="product"
         class="bookCard"
         :title="product.title"
         :author="product.author"

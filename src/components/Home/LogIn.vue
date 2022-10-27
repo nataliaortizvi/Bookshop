@@ -3,8 +3,6 @@ import { mapStores } from "pinia";
 import { useAuthenticationStore } from "../../stores/authentication";
 import { useDatabaseStore } from "../../stores/database";
 
-import { auth } from "../../firebase/config";
-
 export default {
   data() {
     return {
@@ -21,22 +19,9 @@ export default {
   computed: {
     ...mapStores(useAuthenticationStore),
     ...mapStores(useDatabaseStore),
-
-    userIsLogged() {
-      return auth.currentUser !== null;
-    },
   },
 
   methods: {
-    addUser() {
-      theUser = {
-        name: this.name,
-        email: this.email,
-        favorites: [],
-      };
-      this.databaseStore.user = user;
-    },
-
     signIn(e) {
       e.preventDefault();
       this.authenticationStore.signIn(this.email, this.password);

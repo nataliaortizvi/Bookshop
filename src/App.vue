@@ -25,8 +25,9 @@ export default {
     },
 
     getUser() {
-      if(this.authenticationStore.loadCurrentUser() != null){
-        return this.currentUser = this.authenticationStore.loadCurrentUser().admin;
+      if (this.authenticationStore.loadCurrentUser() != null) {
+        return (this.currentUser =
+          this.authenticationStore.loadCurrentUser().admin);
       }
     },
   },
@@ -55,9 +56,6 @@ export default {
     },
     logOut() {
       this.authenticationStore.logOut();
-    },
-    prueba() {
-      console.log(this.getUser);
     },
   },
 };
@@ -91,7 +89,7 @@ export default {
         </RouterLink>
 
         <RouterLink
-        v-if="this.getUser"
+          v-if="this.getUser"
           to="/addbook"
           class="links --darkBlack"
           class-active="active"
@@ -101,7 +99,6 @@ export default {
 
         <a
           v-if="!this.userIsLogged"
-          to="/login"
           class="links --darkBlack logs"
           class-active="active"
           @click="openModal"
@@ -111,7 +108,6 @@ export default {
 
         <a
           v-else
-          to="/login"
           class="links --darkBlack logs"
           class-active="active"
           @click="logOut"
@@ -152,23 +148,45 @@ export default {
         <li><RouterLink class="links --blue" to="/">Home</RouterLink></li>
         <li><RouterLink class="links --blue" to="/books">Books</RouterLink></li>
 
-        <!--li>
-          <RouterLink class="links --darkBlack" to="/addbook">Add book</RouterLink>
-        </li>
         <li>
-          <RouterLink class="links --darkBlack" to="/favorites">
+          <RouterLink
+            v-if="this.getUser"
+            class="links --darkBlack"
+            to="/addbook"
+            >Add book</RouterLink
+          >
+        </li>
+
+        <li>
+          <RouterLink
+            v-if="!this.getUser && this.userIsLogged"
+            class="links --darkBlack"
+            to="/favorites"
+          >
             Your Favorites
           </RouterLink>
-        </li-->
+        </li>
+
         <li>
-          <RouterLink to="/login" class="links --blue"> Log in </RouterLink>
+          <a v-if="!this.userIsLogged" class="links --blue"> Log in </a>
+        </li>
+
+        <li>
+          <a
+            v-if="this.userIsLogged"
+            class="links --darkBlack logs"
+            class-active="active"
+            @click="logOut"
+          >
+            Log Out 👋🏻
+          </a>
         </li>
       </ul>
     </nav>
   </header>
 
   <Modal :showButton="true" v-if="showModal" @close="closeModal">
-    <LogIn class="login"></LogIn>
+    <LogIn></LogIn>
   </Modal>
 
   <!---------------------------------BODY------------------------------------>
@@ -176,7 +194,7 @@ export default {
 
   <!-----------------------------GLOBAL FOOTER------------------------------->
   <footer>
-    <img src="/images/WebElements/logoCircle.png" @click="prueba" />
+    <img src="/images/WebElements/logoCircle.png"/>
     <nav>
       <RouterLink to="/" class="links" class-active="active">Home</RouterLink>
       <RouterLink class="links" to="/books">Books</RouterLink>
@@ -193,7 +211,7 @@ export default {
         Add book
       </RouterLink-->
 
-      <a to="/login" class="links" class-active="active" @click="openModal"
+      <a class="links" class-active="active" @click="openModal"
         >Login</a
       >
     </nav>

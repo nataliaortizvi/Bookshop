@@ -1,10 +1,6 @@
 import { defineStore } from "pinia";
 import { collection, addDoc, onSnapshot } from "firebase/firestore";
-import { getDocs } from "firebase/firestore";
-import { getDoc } from "firebase/firestore";
-import { doc } from "firebase/firestore";
-import { setDoc } from "firebase/firestore";
-import { query, where } from "firebase/firestore";
+import { getDoc, getDocs, doc, setDoc, query, where, orderBy } from "firebase/firestore";
 import { db } from "../firebase/config";
 
 ///// OPTIONS STORE
@@ -22,7 +18,16 @@ export const useDatabaseStore = defineStore("database", {
         async addData(product) {
             try {
                 const docRef = await addDoc(collection(db, "products"), {
-                    product
+                    title: product.title,
+                    author: product.author,
+                    about: product.about,
+                    category: product.category,
+                    price: product.price,
+                    year: product.year,
+                    place: product.place,
+                    notLike: product.notLike,
+                    stars: product.stars,
+                    votes: product.votes,
                 });
                 console.log("Document written with ID: ", docRef.id);
             } catch (e) {
@@ -33,19 +38,20 @@ export const useDatabaseStore = defineStore("database", {
         updateBookStore() {
             onSnapshot(collection(db, "products"), docSnapshot => {
                 this.books = [];
-
+                
                 docSnapshot.forEach((doc) => {
 
                     this.product = {
-                        title: doc.data().product.title,
-                        author: doc.data().product.author,
-                        about: doc.data().product.about,
-                        category: doc.data().product.category,
-                        price: doc.data().product.price,
-                        year: doc.data().product.year,
-                        place: doc.data().product.place,
-                        notLike: true,
-                        stars: "⭐️",
+                        title: doc.data().title,
+                        author: doc.data().author,
+                        about: doc.data().about,
+                        category: doc.data().category,
+                        price: doc.data().price,
+                        year: doc.data().year,
+                        place: doc.data().place,
+                        notLike: doc.data().notLike,
+                        stars: doc.data().stars,
+                        votes: doc.data().votes,
                         id: doc.id,
                     }
 
@@ -53,7 +59,6 @@ export const useDatabaseStore = defineStore("database", {
 
                     //console.log('holis ', doc.data().product, "id: ", doc.id)
                 });
-
             });
         },
 
@@ -61,8 +66,6 @@ export const useDatabaseStore = defineStore("database", {
             const filteredBooks = this.books.filter((book) => id.toLowerCase().replace(/ /g, "") === book.title.toLowerCase().replace(/ /g, ""));
             return filteredBooks ? { ...filteredBooks[0] } : null
         },
-
-       
     },
 });
 
