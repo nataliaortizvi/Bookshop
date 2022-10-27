@@ -64,10 +64,6 @@ export default {
         this.rate = "0";
       }
     },
-
-    prueba() {
-      console.log("pruebaaaa", this.votePosition);
-    },
   },
 };
 </script>

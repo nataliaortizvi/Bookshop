@@ -18,17 +18,23 @@ export default {
   },
 
   data() {
-     return {
-       titleRoute: this.title.replace(/ /g, ""),
-     };
-   },
+    return {
+      titleRoute: this.title.replace(/ /g, ""),
+    };
+  },
+
+  methods: {
+    addFavorite() {
+      console.log();
+    },
+  },
 };
 </script>
 
 <template>
   <section class="cardContainer">
     <!--------------------like button-------------------->
-    <LoveButton class="lovebtn" :notLike="true"></LoveButton>
+    <LoveButton class="lovebtn" :notLike="true" @click="addFavorite"></LoveButton>
 
     <!--------------------card info-------------------->
     <RouterLink :to="`/details/${this.titleRoute}`">
@@ -45,7 +51,9 @@ export default {
       </h2>
 
       <div class="cardContainer_elem">
-        <!--a class="normalText --lightBlack --small">{{ this.stars }}</a-->
+        <a class="normalText --lightBlack --small"
+          ><span class="littleStar">★</span> {{ this.stars }}</a
+        >
         <h1 class="normalText --darkBlack --big">$ {{ this.price }}</h1>
       </div>
     </div>
@@ -111,6 +119,9 @@ export default {
 
       h1 {
         font-weight: 500;
+      }
+      .littleStar {
+        color: #eecc5c;
       }
     }
   }

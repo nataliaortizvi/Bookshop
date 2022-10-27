@@ -39,7 +39,22 @@ export const useDatabaseStore = defineStore("database", {
             onSnapshot(collection(db, "products"), docSnapshot => {
                 this.books = [];
                 
+                let votes = [];
+                let userVoted = 0;
+                let votesSum;
+                let ratesMean = 0;
+
                 docSnapshot.forEach((doc) => {
+
+                    votes = doc.data().votes;
+                    userVoted = doc.data().votes.length;
+
+                    votesSum = 0;
+                    votes.forEach((vote) => {
+                        votesSum += parseInt(vote.rate);
+                    });
+
+                    ratesMean = (votesSum / userVoted).toFixed(1);
 
                     this.product = {
                         title: doc.data().title,
@@ -50,7 +65,7 @@ export const useDatabaseStore = defineStore("database", {
                         year: doc.data().year,
                         place: doc.data().place,
                         notLike: doc.data().notLike,
-                        stars: doc.data().stars,
+                        stars: ratesMean,
                         votes: doc.data().votes,
                         id: doc.id,
                     }

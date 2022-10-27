@@ -80,7 +80,6 @@ export const useAuthenticationStore = defineStore("authentication", {
             //console.log("rate: ", rate, "book: ", book.id);
             let by;
             let votesArray = book.votes;
-            let stars;
 
             by = this.currentUser.id;
 
@@ -106,7 +105,7 @@ export const useAuthenticationStore = defineStore("authentication", {
                     updateDoc(doc(db, "products", book.id), {
                         "votes": votesArray
                     });
-                    
+
                 }else{
                     console.log("NO HAY VOTO: ", votesArray[votePosition]);
 
