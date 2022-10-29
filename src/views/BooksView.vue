@@ -303,14 +303,7 @@ export default {
         v-for="product in arrayToShow"
         :key="product"
         class="bookCard"
-        :title="product.title"
-        :author="product.author"
-        :price="product.price"
-        :notLike="product.notLike"
-        image="product.image"
-        :stars="product.stars"
-        :year="product.year"
-        :id="product.id"
+        :currentBook="product"
       ></BookCard>
       <br />
       <br />

@@ -28,6 +28,7 @@ export default {
       votePosition: Number,
       rate: String,
       userIn: false,
+      isNotLike: true,
     };
   },
 
@@ -38,10 +39,23 @@ export default {
 
         this.getPositionUpdate();
 
-        //console.log("ALGUIEN", newChanges);
+        let favBookPosition = this.currentUser.favorites.findIndex(
+          (v) => v.id == this.currentBook.id
+        );
+
+        if (favBookPosition != -1) {
+          this.isNotLike = false;
+          //console.log("YA ESTA DE FAVORITO", favBookPosition);
+        } else {
+          this.isNotLike = true;
+          //console.log("NO ESTA DE FAVORITO", favBookPosition);
+        }
+
+        //console.log("ALGUIEN", favBookPosition);
       } else {
         this.rate = "0";
         this.userIn = false;
+        this.isNotLike = true;
         //console.log("NADIE", newChanges);
       }
     },
@@ -71,7 +85,7 @@ export default {
      
 <template>
   <div class="detailContainer" v-if="this.currentBook.title">
-    <!--img :src="this.image" /-->
+    <img :src="this.currentBook.image.url" />
     <div class="detailInfo">
       <h1 class="titleText --blue" @click="prueba">
         {{ this.currentBook.title }}
@@ -95,7 +109,11 @@ export default {
       <div class="btnlove">
         <button class="button --blue">Add to cart</button>
         <!------arreglar boton like------>
-        <LoveButton class="lovebtn" :notLike="true"></LoveButton>
+        <LoveButton
+          class="lovebtn"
+          :isNotLike="this.isNotLike"
+          :currentBook="this.currentBook"
+        ></LoveButton>
       </div>
     </div>
   </div>

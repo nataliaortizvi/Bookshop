@@ -194,26 +194,41 @@ export default {
 
   <!-----------------------------GLOBAL FOOTER------------------------------->
   <footer>
-    <img src="/images/WebElements/logoCircle.png"/>
+    <img src="/images/WebElements/logoCircle.png" />
     <nav>
       <RouterLink to="/" class="links" class-active="active">Home</RouterLink>
       <RouterLink class="links" to="/books">Books</RouterLink>
 
-      <!--RouterLink class="links" class-active="active" to="/favorites">
-          Your Favorites
-        </RouterLink>
+      <RouterLink
+        v-if="!this.getUser && this.userIsLogged"
+        class="links"
+        class-active="active"
+        to="/favorites"
+      >
+        Your Favorites
+      </RouterLink>
 
-        <RouterLink
+      <RouterLink
+        v-if="this.getUser"
         to="/addbook"
         class="links"
         class-active="active"
-        >
-        Add book
-      </RouterLink-->
-
-      <a class="links" class-active="active" @click="openModal"
-        >Login</a
       >
+        Add book
+      </RouterLink>
+
+      <a
+        v-if="!this.userIsLogged"
+        class="links"
+        class-active="active"
+        @click="openModal"
+      >
+        Log in
+      </a>
+
+      <a v-else class="links" class-active="active" @click="logOut">
+        Log Out
+      </a>
     </nav>
 
     <a class="normalText"

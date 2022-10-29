@@ -1,60 +1,52 @@
 <script>
-import LoveButton from "./LoveButton.vue";
-
 export default {
   props: {
-    title: String,
-    author: String,
-    price: Number,
-    notLike: Boolean,
-    image: String,
-    stars: Number,
-    year: Number,
-    id: String,
-  },
-
-  components: {
-    LoveButton,
+    currentBook: {},
   },
 
   data() {
     return {
-      titleRoute: this.title.replace(/ /g, ""),
+      titleRoute: this.currentBook.title.replace(/ /g, ""),
     };
   },
 
   methods: {
-    addFavorite() {
-      console.log();
+    addFavorites() {
+      this.$emit("favorites", this.rateOne);
     },
+    prueba(){
+      console.log(this.currentBook.image.url);
+      
+    }
   },
 };
 </script>
 
 <template>
-  <section class="cardContainer">
-    <!--------------------like button-------------------->
-    <LoveButton class="lovebtn" :notLike="true" @click="addFavorite"></LoveButton>
-
+  <section class="cardContainer" @click="prueba">
     <!--------------------card info-------------------->
     <RouterLink :to="`/details/${this.titleRoute}`">
-      <!--img :src="this.image" /-->
+      <img :src="this.currentBook.image.url">
     </RouterLink>
 
     <div class="cardContainer_info">
       <RouterLink :key="this.titleRoute" :to="`/details/${this.titleRoute}`">
-        <h1 class="normalText --darkBlack --small">{{ this.title }}</h1>
+        <h1 class="normalText --darkBlack --small">
+          {{ this.currentBook.title }}
+        </h1>
       </RouterLink>
 
       <h2 class="normalText --lightBlack">
-        {{ this.author }} ({{ this.year }})
+        {{ this.currentBook.author }} ({{ this.currentBook.year }})
       </h2>
 
       <div class="cardContainer_elem">
         <a class="normalText --lightBlack --small"
-          ><span class="littleStar">★</span> {{ this.stars }}</a
+          ><span class="littleStar">★</span> {{ this.currentBook.stars }}</a
         >
-        <h1 class="normalText --darkBlack --big">$ {{ this.price }}</h1>
+        <h1 class="normalText --darkBlack --big">
+          $ {{ this.currentBook.price }}
+        </h1>
       </div>
     </div>
   </section>

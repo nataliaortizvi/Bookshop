@@ -3,7 +3,7 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { signOut } from "firebase/auth";
 import { db, auth } from "../firebase/config";
-import { doc, setDoc, updateDoc, onSnapshot, addDoc } from "firebase/firestore";
+import { doc, setDoc, updateDoc, onSnapshot, deleteDoc, deleteField } from "firebase/firestore";
 
 ///// OPTIONS STORE
 export const useAuthenticationStore = defineStore("authentication", {
@@ -91,23 +91,23 @@ export const useAuthenticationStore = defineStore("authentication", {
             //console.log("CUANTOS VOTOS: ", votesArray);
 
             if (votesArray.length != 0) {
-                console.log("SIIII", votesArray.length);
+                //console.log("SIIII", votesArray.length);
 
                 let votePosition = votesArray.findIndex(v => v.by == by);
-                console.log("POSICION", votePosition);
-                
-                if (votePosition != -1){
-                    console.log("YA VOTO: ", votesArray[votePosition]);
+                //console.log("POSICION", votePosition);
 
-                    console.log("ARRAY EN EL VOTO", votesArray[votePosition].rate);
+                if (votePosition != -1) {
+                    //console.log("YA VOTO: ", votesArray[votePosition]);
+
+                    //console.log("ARRAY EN EL VOTO", votesArray[votePosition].rate);
                     votesArray[votePosition].rate = rate;
 
                     updateDoc(doc(db, "products", book.id), {
                         "votes": votesArray
                     });
 
-                }else{
-                    console.log("NO HAY VOTO: ", votesArray[votePosition]);
+                } else {
+                    //console.log("NO HAY VOTO: ", votesArray[votePosition]);
 
                     votesArray.push(vote)
 
@@ -117,13 +117,36 @@ export const useAuthenticationStore = defineStore("authentication", {
                 }
 
             } else {
-                console.log("NOOO", votesArray.length);
+                //console.log("NOOO", votesArray.length);
 
                 votesArray.push(vote)
 
                 updateDoc(doc(db, "products", book.id), {
                     "votes": votesArray
                 });
+            }
+        },
+
+        addFavorites(book) {
+            let favorite = this.currentUser.favorites;
+
+            let favBookPosition = favorite.findIndex(v => v.id == book.id);
+
+            if (favBookPosition != -1) {
+                //console.log("YA ESTA DE FAVORITO", favBookPosition);
+
+                favorite.splice(favBookPosition, 1)
+
+                updateDoc(doc(db, "users", this.currentUser.id), {
+                    "favorites": favorite
+                });
+
+            } else {
+                favorite.push(book);
+                updateDoc(doc(db, "users", this.currentUser.id), {
+                    "favorites": favorite
+                });
+                //console.log("NO ESTA DE FAVORITO", favBookPosition);
             }
         },
     },

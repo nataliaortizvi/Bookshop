@@ -4,12 +4,11 @@ import Modal from "../components/Home/Modal.vue";
 
 import { useDatabaseStore } from "../stores/database";
 
-
 export default {
   components: {
     Modal,
   },
-  
+
   data() {
     return {
       title: "",
@@ -19,8 +18,11 @@ export default {
       year: "",
       place: "",
       category: [],
+      image: [],
 
       showModal: false,
+      modalOneShow: true,
+      newProduct: [],
     };
   },
 
@@ -30,15 +32,9 @@ export default {
 
   methods: {
     onFileChange(e) {
-      var files = e.target.files || e.dataTransfer.files;
-
-      const reader = new FileReader();
-
-      reader.addEventListener("load", () => {
-        this.image = reader.result;
-      });
-
-      reader.readAsDataURL(files[0]);
+      var files = e.target.files;
+      this.image = files[0];
+      this.databaseStore.uploadImage(this.image);
     },
 
     openModal() {
@@ -49,8 +45,12 @@ export default {
       this.showModal = false;
     },
 
+    nextModal() {
+      this.modalOneShow = false;
+    },
+
     addProduct() {
-      const newProduct = {
+      this.newProduct = {
         title: this.title,
         author: this.author,
         about: this.about,
@@ -58,11 +58,16 @@ export default {
         price: this.price,
         year: this.year,
         place: this.place,
-        notLike: true,
+        image: this.image.name,
         stars: 0,
         votes: [],
       };
-      this.databaseStore.addData(newProduct);
+      this.databaseStore.addData(this.newProduct);
+      console.log("MANDAAAA", this.image.name);
+    },
+
+    restartData() {
+      location.reload();
     },
   },
 };
@@ -265,26 +270,51 @@ export default {
       Add book!
     </button>
     <Modal :showButton="false" v-if="showModal">
+      <section class="modalSection" v-if="modalOneShow">
+        <h1 class="subtitleText">
+          Are you sure you want to add this book to Bookie?
+        </h1>
+        <button
+          class="button --white"
+          @click="
+            () => {
+              addProduct();
+              nextModal();
+            }
+          "
+        >
+          Yes
+        </button>
+        <button class="button --white" @click="closeModal">No</button>
+      </section>
 
-      <section class="modalSection">
-        <h1 class="subtitleText">Are you sure you want to add this book to Bookie?</h1>
-        <RouterLink to="/books">
+      <section class="modalSectionTwo" v-if="!modalOneShow">
+        <h1 class="subtitleText">Book added!</h1>
+        <RouterLink to="/">
           <button
             class="button --white"
             @click="
               () => {
                 closeModal();
-                addProduct();
-                //createNewProduct();
               }
             "
           >
-            Yes
+            Go home
           </button>
         </RouterLink>
-        <button class="button --white" @click="closeModal">No</button>
+        <RouterLink to="/books">
+          <button
+            class="button --white"
+            @click="
+              () => {
+                restartData();
+              }
+            "
+          >
+            Add another book"
+          </button>
+        </RouterLink>
       </section>
-
     </Modal>
   </section>
 </template>
@@ -294,7 +324,7 @@ export default {
 <style lang="scss" scoped>
 @import "src/assets/main.scss";
 
-.modalSection {
+.modalSection, .modalSectionTwo{
   background: linear-gradient($gradientPink);
   box-shadow: 2px 2px 5px $blackLight;
   padding: 40px;
