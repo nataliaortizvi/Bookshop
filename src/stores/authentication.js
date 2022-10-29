@@ -88,16 +88,16 @@ export const useAuthenticationStore = defineStore("authentication", {
                 rate
             }
 
-            //console.log("CUANTOS VOTOS: ", votesArray);
+            console.log("CUANTOS VOTOS: ", votesArray);
 
             if (votesArray.length != 0) {
-                //console.log("SIIII", votesArray.length);
+                console.log("SIIII", votesArray.length);
 
                 let votePosition = votesArray.findIndex(v => v.by == by);
                 //console.log("POSICION", votePosition);
 
                 if (votePosition != -1) {
-                    //console.log("YA VOTO: ", votesArray[votePosition]);
+                    console.log("YA VOTO: ", votesArray[votePosition]);
 
                     //console.log("ARRAY EN EL VOTO", votesArray[votePosition].rate);
                     votesArray[votePosition].rate = rate;
@@ -107,7 +107,7 @@ export const useAuthenticationStore = defineStore("authentication", {
                     });
 
                 } else {
-                    //console.log("NO HAY VOTO: ", votesArray[votePosition]);
+                    console.log("NO HAY VOTO: ", votesArray[votePosition]);
 
                     votesArray.push(vote)
 
@@ -117,7 +117,7 @@ export const useAuthenticationStore = defineStore("authentication", {
                 }
 
             } else {
-                //console.log("NOOO", votesArray.length);
+                console.log("NOOO", votesArray.length);
 
                 votesArray.push(vote)
 

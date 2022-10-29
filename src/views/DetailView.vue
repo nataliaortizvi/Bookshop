@@ -51,17 +51,23 @@ export default {
       this.$route.params.productId
     );
   },
+
+  methods: {
+    prueba(){
+      console.log("PORFAVOR", )
+    }
+  }
 };
 </script>
 
 <template>
-  <div class="container">
+  <div class="container" @click="prueba">
     <img src="/images/WebElements/detailVector.png" />
 
     <BookDetail
       v-if="this.bookInfo"
-      :currentBook="currentProduct"
-      :currentUser="currentUser"
+      :currentBook="this.currentProduct"
+      :currentUser="this.currentUser"
     ></BookDetail>
   </div>
 </template>

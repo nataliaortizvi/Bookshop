@@ -129,6 +129,7 @@ export default {
       this.currentProducts = JSON.parse(JSON.stringify(this.normalProducts));
       this.arrayToShow = this.currentProducts;
     },
+
   },
 };
 </script>

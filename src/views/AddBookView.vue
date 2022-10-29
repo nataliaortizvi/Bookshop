@@ -311,7 +311,7 @@ export default {
               }
             "
           >
-            Add another book"
+            Add another book!
           </button>
         </RouterLink>
       </section>

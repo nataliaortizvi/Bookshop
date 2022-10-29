@@ -31,6 +31,10 @@ export default {
         console.log("si hay alguiennnn");
       }
     },
+
+    prueba() {
+      console.log("ALGUIEN SI HAY SIII", this.userIn)
+    },
     
     closeModal() {
       this.showModal = false;
