@@ -49,7 +49,7 @@ export const useDatabaseStore = defineStore("database", {
                             "image": this.imageInfo,
                         });
 
-                        console.log("WHOOO: ", refBook.id, this.imageInfo);
+                        //console.log("WHOOO: ", refBook.id, this.imageInfo);
 
                     } catch (e) {
                         console.error("Error adding document: ", e);
@@ -98,7 +98,7 @@ export const useDatabaseStore = defineStore("database", {
                         votes: docu.data().votes,
                         id: docu.id,
                     }
-                    console.log('RECIBEEE', this.product.id, docu.data().image)
+                    //console.log('RECIBEEE', this.product.id, docu.data().image)
                     this.books.push(this.product);
 
                     updateDoc(doc(db, "products", docu.id), this.product);

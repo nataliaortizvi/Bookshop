@@ -2,7 +2,7 @@
 import LoveButton from "./LoveButton.vue";
 import Stars from "./Starts.vue";
 import { mapStores } from "pinia";
-import { useAuthenticationStore } from "../../stores/authentication";
+import { useAuthenticationStore } from "../../stores/authTest/authentication";
 
 export default {
   props: {

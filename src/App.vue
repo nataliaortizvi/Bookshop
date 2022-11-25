@@ -1,11 +1,11 @@
 <script>
 import { mapStores } from "pinia";
-import { useAuthenticationStore } from "./stores/authentication";
+import { useAuthenticationStore } from "./stores/authTest/authentication";
 import { useDatabaseStore } from "./stores/database";
 
 import { RouterLink, RouterView } from "vue-router";
 
-import Modal from "./components/Home/Modal.vue";
+import Modal from "./components/Home/ModalTest/Modal.vue";
 import LogIn from "./components/Home/LogIn.vue";
 
 export default {

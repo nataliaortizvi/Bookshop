@@ -4,7 +4,7 @@
 
 <template>
   <section>
-    <img src="src/assets/img/WebElements/pinkball.png" class="ball" />
+    <img src="/images/WebElements/pinkball.png" class="ball" />
     <div class="container">
       <h1 class="titleText --pink">Join our community!</h1>
       <div class="line"></div>

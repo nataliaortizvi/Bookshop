@@ -2,57 +2,46 @@ import { defineStore } from "pinia";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { signOut } from "firebase/auth";
-import { db, auth } from "../firebase/config";
+import { db, auth } from "../../firebase/config";
 import { doc, setDoc, updateDoc, onSnapshot, deleteDoc, deleteField } from "firebase/firestore";
 
 ///// OPTIONS STORE
 export const useAuthenticationStore = defineStore("authentication", {
     state: () => ({
-        isUser: null,
-        user: {},
+        user: null,
         currentUser: null,
     }),
     actions: {
-        signIn(email, password) {
-            signInWithEmailAndPassword(auth, email, password)
-                .then((userCredential) => {
-                    const user = userCredential.user;
-                })
-                .catch((error) => {
-                    const errorCode = error.code;
-                    const errorMessage = error.message;
-                    alert('User not found');
-                });
+        //old user
+        async signIn(email, password) {
+            await signInWithEmailAndPassword(auth, email, password);
         },
 
-        signUp(email, password, name) {
+        //new user
+        async signUp(email, password, name) {
+
             var ref;
-            createUserWithEmailAndPassword(auth, email, password)
-                .then((userCredential) => {
-                    ref = userCredential.user;
-                })
-                .then(() => {
-                    this.user = {
-                        name: name,
-                        email: email,
-                        favorites: [],
-                        id: ref.uid,
-                    }
-                    setDoc(doc(db, "users", ref.uid), this.user);
-                })
-                .catch((error) => {
-                    const errorCode = error.code;
-                    const errorMessage = error.message;
-                    alert(errorMessage);
-                });
+            try {
+                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+
+                ref = userCredential.user;
+
+                this.user = {
+                    name: name,
+                    email: email,
+                    favorites: [],
+                    id: ref.uid,
+                }
+                setDoc(doc(db, "users", ref.uid), this.user);
+
+            } catch (error) {
+                //alert(error.message);  
+            }
         },
 
+        //log out 
         logOut() {
-            signOut(auth).then(() => {
-                // Sign-out successful.
-            }).catch((error) => {
-                // An error happened.
-            });
+            signOut(auth);
         },
 
         //----------------------------USERS DATABASE--------------------------
@@ -65,7 +54,6 @@ export const useAuthenticationStore = defineStore("authentication", {
             } else {
                 return null
             }
-
         },
 
         loadCurrentUser() {

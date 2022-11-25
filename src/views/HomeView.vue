@@ -1,8 +1,8 @@
 <script>
-import Landing from "../components/Home/Landing.vue";
+import Landing from "../components/Home/LandingTest/Landing.vue";
 import SlideCarousel from "../components/Home/SlideCarousel.vue";
-import SlideFade from "../components/Home/SlideFade.vue";
-import Subscribe from "../components/Home/Subscribe.vue";
+import SlideFade from "../components/Home/SlideFadeTest/SlideFade.vue";
+import Subscribe from "../components/Home/SubscribeTest/Subscribe.vue";
 
 export default {
   components: {
@@ -24,46 +24,46 @@ export default {
         :slides="[
           {
             title: 'Romance',
-            image: 'src/assets/img/Books/love.png',
+            image: 'images/books/love.png',
           },
           {
             title: 'Kids',
-            image: 'src/assets/img/Books/kids.png',
+            image: 'images/books/kids.png',
           },
           {
             title: 'Fiction',
-            image: 'src/assets/img/Books/fiction.jpg',
+            image: 'images/books/fiction.jpg',
           },
           {
             title: 'Biographies',
-            image: 'src/assets/img/Books/man.jpg',
+            image: 'images/books/man.jpg',
           },
           {
             title: 'Horror',
-            image: 'src/assets/img/Books/horror.jpg',
+            image: 'images/books/horror.jpg',
           },
           {
             title: 'History',
-            image: 'src/assets/img/Books/history.jpg',
+            image: 'images/books/history.jpg',
           },
           {
             title: 'Mystery',
-            image: 'src/assets/img/Books/mystery.png',
+            image: 'images/books/mystery.png',
           },
           {
             title: 'Food',
-            image: 'src/assets/img/Books/food.jpg',
+            image: 'images/books/food.jpg',
           },
           {
             title: 'Educational',
-            image: 'src/assets/img/Books/educational.jpg',
+            image: 'images/books/educational.jpg',
           },
         ]"
       ></SlideCarousel>
     </section>
   </div>
 
-  <h2 class="subtitleText --quote">
+  <h2 class="subtitleText --quote" style="background-image: url(images/WebElements/fotoquote.png)">
     “A reader lives a thousand lives before he dies . . .<br />The man who never
     reads lives only one.” George R.R. Martin
   </h2>
@@ -75,35 +75,35 @@ export default {
         {
           title: 'Fairy Tale',
           author: 'Stephen King',
-          image: 'src/assets/img/Books/stephenBook.png',
+          image: 'images/books/stephenBook.png',
           description:
             'Legendary storyteller Stephen King goes into the deepest well of his imagination in this spellbinding novel about a seventeen-year-old boy who inherits the keys to a parallel world where good and evil are at war, and the stakes could not be higher—for that world or ours',
         },
         {
           title: 'Belladonna',
           author: 'Adalyn Grace',
-          image: 'src/assets/img/Books/adalynBook.png',
+          image: 'images/books/adalynBook.png',
           description:
             'New York bestselling author Adalyn Grace brings to life a highly romantic, Gothic-infused world of wealth, desire, and betrayal.',
         },
         {
           title: 'The Ballad of Never After',
           author: 'Stephanie Garber',
-          image: 'src/assets/img/Books/garberBook.png',
+          image: 'images/books/garberBook.png',
           description:
             'Stephanie Garbers The Ballad of Never After is the fiercely-anticipated sequel to the #1 New York Times bestseller Once Upon a Broken Heart, starring Evangeline Fox and the Prince of Hearts on a new journey of magic, mystery, and heartbreak',
         },
         {
           title: 'The Marriage Portrait',
           author: 'Maggie O Farrell',
-          image: 'src/assets/img/Books/hamnetBook.png',
+          image: 'images/books/hamnetBook.png',
           description:
             'Brings the world of Renaissance Italy to jewel-bright life in this unforgettable fictional portrait of the captivating young duchess Lucrezia de´ Medici as she makes her way in a troubled court.',
         },
         {
           title: 'The First to Die at the End',
           author: 'Adam Silvera',
-          image: 'src/assets/img/Books/silveraBook.jpg',
+          image: 'images/books/silveraBook.jpg',
           description:
             'In this prequel to number one New York Times bestselling phenomenon They Both Die at the End, two new strangers spend a life-changing day together after Death-Cast first makes their fateful calls.',
         },
@@ -151,7 +151,7 @@ export default {
   font-weight: 100;
   font-size: 25px;
   padding: 50px 850px 50px 100px;
-  background-image: url("src/assets/img/WebElements/fotoquote.png");
+  //background-image: url("/images/WebElements/fotoquote.png");
 }
 .bestSellers {
   background: linear-gradient($gradientBlue);

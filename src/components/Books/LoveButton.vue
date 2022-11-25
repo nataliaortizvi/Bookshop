@@ -1,6 +1,6 @@
 <script>
 import { mapStores } from "pinia";
-import { useAuthenticationStore } from "../../stores/authentication";
+import { useAuthenticationStore } from "../../stores/authTest/authentication";
 
 export default {
   methods: {

@@ -1,5 +1,5 @@
 <script>
-import Modal from "../../components/Home/Modal.vue";
+import Modal from "../../components/Home/ModalTest/Modal.vue";
 import LogIn from "../../components/Home/LogIn.vue";
 
 export default {

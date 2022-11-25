@@ -24,17 +24,14 @@ if (x != null) {
     </div>
 
     <img
-      src="src/assets/img/WebElements/fondoLibros.png"
+      src="/images/WebElements/fondolibros.png"
       class="imageLandingBook"
     />
     <img
-      src="src/assets/img/WebElements/fondolanding.png"
+      src="/images/WebElements/fondolanding.png"
       class="imageLanding"
     />
-    <img
-      src="src/assets/img/WebElements/fondolandingP.png"
-      class="imageLandingP"
-    />
+    
   </section>
 </template>
     

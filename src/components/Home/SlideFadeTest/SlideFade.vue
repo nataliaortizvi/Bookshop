@@ -1,5 +1,5 @@
 <script>
-import BookDetail from "../Books/BookDetail.vue";
+import BookDetail from "../../Books/BookDetail.vue";
 
 // Import Swiper Vue.js components
 import { Swiper, SwiperSlide } from "swiper/vue";

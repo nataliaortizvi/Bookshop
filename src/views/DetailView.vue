@@ -1,6 +1,6 @@
 <script>
 import { mapStores } from "pinia";
-import { useAuthenticationStore } from "../stores/authentication";
+import { useAuthenticationStore } from "../stores/authTest/authentication";
 import { useDatabaseStore } from "../stores/database";
 
 import BookDetail from "../components/Books/BookDetail.vue";
@@ -51,12 +51,6 @@ export default {
       this.$route.params.productId
     );
   },
-
-  methods: {
-    prueba(){
-      console.log("PORFAVOR", )
-    }
-  }
 };
 </script>
 

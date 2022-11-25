@@ -5,7 +5,7 @@ import { getAnalytics } from "firebase/analytics";
 import { getAuth } from "firebase/auth";
 import { onAuthStateChanged } from "firebase/auth";
 
-import { useAuthenticationStore } from "../stores/authentication";
+import { useAuthenticationStore } from "../stores/authTest/authentication";
 import { useDatabaseStore } from "../stores/database";
 
 import { getFirestore } from "firebase/firestore";

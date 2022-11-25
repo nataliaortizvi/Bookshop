@@ -1,6 +1,6 @@
 <script>
 import { mapStores } from "pinia";
-import Modal from "../components/Home/Modal.vue";
+import Modal from "../components/Home/ModalTest/Modal.vue";
 
 import { useDatabaseStore } from "../stores/database";
 
